@@ -3,6 +3,7 @@
 namespace rocketfellows\ViesVatValidationRest;
 
 use GuzzleHttp\Client;
+use rocketfellows\ViesVatValidationInterface\FaultCodeExceptionFactory;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
 use rocketfellows\ViesVatValidationInterface\VatNumberValidationResult;
 use rocketfellows\ViesVatValidationInterface\VatNumberValidationServiceInterface;
@@ -10,11 +11,14 @@ use rocketfellows\ViesVatValidationInterface\VatNumberValidationServiceInterface
 abstract class AbstractVatNumberValidationRestService implements VatNumberValidationServiceInterface
 {
     private $client;
+    private $faultCodeExceptionFactory;
 
     public function __construct(
-        Client $client
+        Client $client,
+        FaultCodeExceptionFactory $faultCodeExceptionFactory
     ) {
         $this->client = $client;
+        $this->faultCodeExceptionFactory = $faultCodeExceptionFactory;
     }
 
     public function validateVat(VatNumber $vatNumber): VatNumberValidationResult
