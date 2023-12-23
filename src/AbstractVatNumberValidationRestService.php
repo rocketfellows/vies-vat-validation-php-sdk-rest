@@ -29,6 +29,27 @@ abstract class AbstractVatNumberValidationRestService implements VatNumberValida
 
     private function isRequestFaulted(stdClass $responseData): bool
     {
-        // TODO: implement
+        return !empty($this->getResponseErrorCode($responseData));
+    }
+
+    private function getResponseErrorCode(stdClass $responseData): ?string
+    {
+        $errorWrapper = $responseData->errorWrappers ?? [];
+
+        if (!is_array($errorWrapper)) {
+            return null;
+        }
+
+        if (empty($errorWrapper)) {
+            return null;
+        }
+
+        $error = $errorWrapper[0] ?? null;
+
+        if (empty($error)) {
+            return null;
+        }
+
+        return $error->error ?? null;
     }
 }
