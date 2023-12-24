@@ -31,6 +31,23 @@ class ResponseFactoryTest extends TestCase
                     'bar'
                 ),
             ],
+            'country code set, vat number set, request date set, validation flag set false, name set, address set' => [
+                'responseData' => (object)[
+                    'countryCode' => 'DE',
+                    'vatNumber' => '1234',
+                    'requestDate' => '2023-12-12 10:10:10',
+                    'valid' => false,
+                    'name' => 'foo',
+                    'address' => 'bar',
+                ],
+                'expectedVatNumberValidationResult' => new VatNumberValidationResult(
+                    (new VatNumber('DE', '1234')),
+                    '2023-12-12 10:10:10',
+                    false,
+                    'foo',
+                    'bar'
+                ),
+            ],
         ];
     }
 }
