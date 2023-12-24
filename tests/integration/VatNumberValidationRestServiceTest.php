@@ -8,6 +8,7 @@ use rocketfellows\ViesVatValidationInterface\exceptions\service\InvalidInputServ
 use rocketfellows\ViesVatValidationInterface\exceptions\service\InvalidRequesterInfoServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\MSUnavailableServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\ServiceUnavailableException;
+use rocketfellows\ViesVatValidationInterface\exceptions\service\TimeoutServiceException;
 use rocketfellows\ViesVatValidationInterface\FaultCodeExceptionFactory;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
 
@@ -42,7 +43,6 @@ class VatNumberValidationRestServiceTest extends TestCase
     {
         // 100 = Valid request with Valid VAT Number
 		// 200 = Valid request with an Invalid VAT Number
-		// 302 = Error : TIMEOUT
 		// 400 = Error : VAT_BLOCKED
 		// 401 = Error : IP_BLOCKED
 		// 500 = Error : GLOBAL_MAX_CONCURRENT_REQ
@@ -66,6 +66,10 @@ class VatNumberValidationRestServiceTest extends TestCase
             'MS_UNAVAILABLE error' => [
                 'vatNumber' => new VatNumber('DE', '301'),
                 'expectedExceptionClass' => MSUnavailableServiceException::class,
+            ],
+            'TIMEOUT error' => [
+                'vatNumber' => new VatNumber('DE', '302'),
+                'expectedExceptionClass' => TimeoutServiceException::class,
             ],
         ];
     }
