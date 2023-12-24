@@ -28,9 +28,11 @@ class VatNumberValidationRestServiceTest extends TestCase
     /**
      * @dataProvider getValidateVatHandlingExceptionsProvidedData
      */
-    public function testValidateVatHandlingExceptions(): void
+    public function testValidateVatHandlingExceptions(VatNumber $vatNumber, string $expectedExceptionClass): void
     {
-        // TODO: implement
+        $this->expectException($expectedExceptionClass);
+
+        $this->testVatNumberValidationRestService->validateVat($vatNumber);
     }
 
     public function getValidateVatHandlingExceptionsProvidedData(): array
