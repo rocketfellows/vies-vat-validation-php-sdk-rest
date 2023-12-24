@@ -614,6 +614,23 @@ abstract class VatNumberValidationServiceTest extends TestCase
                 'checkVatResponseFault' => '{"errorWrappers": [{"error": "foo"}]}',
                 'expectedExceptionClass' => UnknownServiceErrorException::class,
             ],
+            'empty fault' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'checkVatResponseFault' => '{"errorWrappers": [{"error": ""}]}',
+                'expectedExceptionClass' => UnknownServiceErrorException::class,
+            ],
         ];
     }
 
