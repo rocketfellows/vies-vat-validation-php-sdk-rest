@@ -439,22 +439,24 @@ abstract class VatNumberValidationServiceTest extends TestCase
                 'checkVatResponseFault' => '{"errorWrappers": [{"error": "IP_BLOCKED"}]}',
                 'expectedExceptionClass' => IPBlockedServiceException::class,
             ],
-            /*'ip_blocked fault' => [
+            'ip_blocked fault' => [
                 'vatNumber' => new VatNumber(
                     'DE',
                     '12312312'
                 ),
                 'checkVatCallArgs' => [
-                    'countryCode' => 'DE',
-                    'vatNumber' => '12312312',
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
                 ],
-                'thrownCheckVatFault' => new SoapFault(
-                    'ip_blocked',
-                    'ip_blocked'
-                ),
+                'checkVatResponseFault' => '{"errorWrappers": [{"error": "ip_blocked"}]}',
                 'expectedExceptionClass' => IPBlockedServiceException::class,
             ],
-            'GLOBAL_MAX_CONCURRENT_REQ fault' => [
+            /*'GLOBAL_MAX_CONCURRENT_REQ fault' => [
                 'vatNumber' => new VatNumber(
                     'DE',
                     '12312312'
