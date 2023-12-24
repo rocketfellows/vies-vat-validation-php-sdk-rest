@@ -299,22 +299,24 @@ abstract class VatNumberValidationServiceTest extends TestCase
                 'checkVatResponseFault' => '{"errorWrappers": [{"error": "MS_UNAVAILABLE"}]}',
                 'expectedExceptionClass' => MSUnavailableServiceException::class,
             ],
-            /*'ms_unavailable fault' => [
+            'ms_unavailable fault' => [
                 'vatNumber' => new VatNumber(
                     'DE',
                     '12312312'
                 ),
                 'checkVatCallArgs' => [
-                    'countryCode' => 'DE',
-                    'vatNumber' => '12312312',
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
                 ],
-                'thrownCheckVatFault' => new SoapFault(
-                    'ms_unavailable',
-                    'ms_unavailable'
-                ),
+                'checkVatResponseFault' => '{"errorWrappers": [{"error": "ms_unavailable"}]}',
                 'expectedExceptionClass' => MSUnavailableServiceException::class,
             ],
-            'TIMEOUT fault' => [
+            /*'TIMEOUT fault' => [
                 'vatNumber' => new VatNumber(
                     'DE',
                     '12312312'
