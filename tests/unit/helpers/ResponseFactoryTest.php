@@ -5,12 +5,27 @@ namespace rocketfellows\ViesVatValidationRest\tests\unit\helpers;
 use PHPUnit\Framework\TestCase;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
 use rocketfellows\ViesVatValidationInterface\VatNumberValidationResult;
+use rocketfellows\ViesVatValidationRest\helpers\ResponseFactory;
+use stdClass;
 
 /**
  * @group vies-vat-validation-rest-helpers
  */
 class ResponseFactoryTest extends TestCase
 {
+    /**
+     * @dataProvider getVatNumberValidationResultProvidedData
+     */
+    public function testGetVatNumberValidationResult(
+        stdClass $responseData,
+        VatNumberValidationResult $expectedVatNumberValidationResult
+    ): void {
+        $this->assertEquals(
+            $expectedVatNumberValidationResult,
+            ResponseFactory::getVatNumberValidationResult($responseData)
+        );
+    }
+
     public function getVatNumberValidationResultProvidedData(): array
     {
         return [
