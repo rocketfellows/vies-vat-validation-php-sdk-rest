@@ -9,4 +9,13 @@ use PHPUnit\Framework\TestCase;
  */
 class ResponseFactoryTest extends TestCase
 {
+    public function getVatNumberValidationResultProvidedData(): array
+    {
+        return [
+            [
+                'responseData',
+                'expectedVatNumberValidationResult',
+            ],
+        ];
+    }
 }
