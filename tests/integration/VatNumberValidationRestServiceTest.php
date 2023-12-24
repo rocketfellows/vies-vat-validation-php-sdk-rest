@@ -5,6 +5,7 @@ namespace rocketfellows\ViesVatValidationRest\tests\integration;
 use GuzzleHttp\Client;
 use PHPUnit\Framework\TestCase;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\InvalidInputServiceException;
+use rocketfellows\ViesVatValidationInterface\exceptions\service\InvalidRequesterInfoServiceException;
 use rocketfellows\ViesVatValidationInterface\FaultCodeExceptionFactory;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
 
@@ -39,8 +40,6 @@ class VatNumberValidationRestServiceTest extends TestCase
     {
         // 100 = Valid request with Valid VAT Number
 		// 200 = Valid request with an Invalid VAT Number
-		// 201 = Error : INVALID_INPUT
-		// 202 = Error : INVALID_REQUESTER_INFO
 		// 300 = Error : SERVICE_UNAVAILABLE
 		// 301 = Error : MS_UNAVAILABLE
 		// 302 = Error : TIMEOUT
@@ -55,6 +54,10 @@ class VatNumberValidationRestServiceTest extends TestCase
             'INVALID_INPUT error' => [
                 'vatNumber' => new VatNumber('DE', '201'),
                 'expectedExceptionClass' => InvalidInputServiceException::class,
+            ],
+            'INVALID_REQUESTER_INFO error' => [
+                'vatNumber' => new VatNumber('DE', '202'),
+                'expectedExceptionClass' => InvalidRequesterInfoServiceException::class,
             ],
         ];
     }
