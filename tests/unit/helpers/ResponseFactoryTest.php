@@ -65,6 +65,16 @@ class ResponseFactoryTest extends TestCase
                     ''
                 ),
             ],
+            'country code not set, vat number not set, request date not set, validation flag not set, name not set, address not set' => [
+                'responseData' => (object)[],
+                'expectedVatNumberValidationResult' => new VatNumberValidationResult(
+                    (new VatNumber('', '')),
+                    '',
+                    false,
+                    '',
+                    ''
+                ),
+            ],
         ];
     }
 }
