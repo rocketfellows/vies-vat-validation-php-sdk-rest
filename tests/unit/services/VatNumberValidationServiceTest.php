@@ -13,6 +13,7 @@ use rocketfellows\ViesVatValidationInterface\exceptions\service\InvalidRequester
 use rocketfellows\ViesVatValidationInterface\exceptions\service\MSUnavailableServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\ServiceUnavailableException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\TimeoutServiceException;
+use rocketfellows\ViesVatValidationInterface\exceptions\service\VatBlockedServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\ServiceRequestException;
 use rocketfellows\ViesVatValidationInterface\FaultCodeExceptionFactory;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
@@ -386,22 +387,24 @@ abstract class VatNumberValidationServiceTest extends TestCase
                 'checkVatResponseFault' => '{"errorWrappers": [{"error": "invalid_requester_info"}]}',
                 'expectedExceptionClass' => InvalidRequesterInfoServiceException::class,
             ],
-            /*'VAT_BLOCKED fault' => [
+            'VAT_BLOCKED fault' => [
                 'vatNumber' => new VatNumber(
                     'DE',
                     '12312312'
                 ),
                 'checkVatCallArgs' => [
-                    'countryCode' => 'DE',
-                    'vatNumber' => '12312312',
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
                 ],
-                'thrownCheckVatFault' => new SoapFault(
-                    'VAT_BLOCKED',
-                    'VAT_BLOCKED'
-                ),
+                'checkVatResponseFault' => '{"errorWrappers": [{"error": "VAT_BLOCKED"}]}',
                 'expectedExceptionClass' => VatBlockedServiceException::class,
             ],
-            'vat_blocked fault' => [
+            /*'vat_blocked fault' => [
                 'vatNumber' => new VatNumber(
                     'DE',
                     '12312312'
