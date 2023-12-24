@@ -9,6 +9,7 @@ use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\GlobalMaxConcurrentReqServiceException;
+use rocketfellows\ViesVatValidationInterface\exceptions\service\GlobalMaxConcurrentReqTimeServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\InvalidInputServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\InvalidRequesterInfoServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\IPBlockedServiceException;
@@ -491,22 +492,24 @@ abstract class VatNumberValidationServiceTest extends TestCase
                 'checkVatResponseFault' => '{"errorWrappers": [{"error": "global_max_concurrent_req"}]}',
                 'expectedExceptionClass' => GlobalMaxConcurrentReqServiceException::class,
             ],
-            /*'GLOBAL_MAX_CONCURRENT_REQ_TIME fault' => [
+            'GLOBAL_MAX_CONCURRENT_REQ_TIME fault' => [
                 'vatNumber' => new VatNumber(
                     'DE',
                     '12312312'
                 ),
                 'checkVatCallArgs' => [
-                    'countryCode' => 'DE',
-                    'vatNumber' => '12312312',
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
                 ],
-                'thrownCheckVatFault' => new SoapFault(
-                    'GLOBAL_MAX_CONCURRENT_REQ_TIME',
-                    'GLOBAL_MAX_CONCURRENT_REQ_TIME'
-                ),
+                'checkVatResponseFault' => '{"errorWrappers": [{"error": "GLOBAL_MAX_CONCURRENT_REQ_TIME"}]}',
                 'expectedExceptionClass' => GlobalMaxConcurrentReqTimeServiceException::class,
             ],
-            'global_max_concurrent_req_time fault' => [
+            /*'global_max_concurrent_req_time fault' => [
                 'vatNumber' => new VatNumber(
                     'DE',
                     '12312312'
