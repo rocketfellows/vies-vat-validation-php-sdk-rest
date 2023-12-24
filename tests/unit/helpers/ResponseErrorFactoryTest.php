@@ -11,6 +11,14 @@ use stdClass;
  */
 class ResponseErrorFactoryTest extends TestCase
 {
+    /**
+     * @dataProvider getResponseErrorCodeProvidedData
+     */
+    public function testGetResponseErrorCode(stdClass $responseData, ?string $expectedResponseErrorCode): void
+    {
+        $this->assertEquals($expectedResponseErrorCode, ResponseErrorFactory::getResponseErrorCode($responseData));
+    }
+
     public function getResponseErrorCodeProvidedData(): array
     {
         return [
