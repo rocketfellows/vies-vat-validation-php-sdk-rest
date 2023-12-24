@@ -25,9 +25,15 @@ class ResponseErrorFactoryTest extends TestCase
     public function getResponseErrorMessageProvidedData(): array
     {
         return [
-            [
-                'responseData',
-                'expectedResponseErrorMessage',
+            'error message set' => [
+                'responseData' => (object)[
+                    'errorWrappers' => [
+                        (object)[
+                            'message' => 'foo',
+                        ]
+                    ],
+                ],
+                'expectedResponseErrorMessage' => 'foo',
             ],
         ];
     }
