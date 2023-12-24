@@ -41,7 +41,13 @@ class VatNumberValidationRestServiceTest extends TestCase
      */
     public function testValidateVat(VatNumber $vatNumber, array $expectedValidationResultData): void
     {
-        // TODO: implement
+        $actualValidationResult = $this->testVatNumberValidationRestService->validateVat($vatNumber);
+
+        $this->assertEquals($expectedValidationResultData['countryCode'], $actualValidationResult->getCountryCode());
+        $this->assertEquals($expectedValidationResultData['vatNumber'], $actualValidationResult->getVatNumber());
+        $this->assertEquals($expectedValidationResultData['isValid'], $actualValidationResult->isValid());
+        $this->assertEquals($expectedValidationResultData['name'], $actualValidationResult->getName());
+        $this->assertEquals($expectedValidationResultData['address'], $actualValidationResult->getAddress());
     }
 
     public function getValidateVatProvidedData(): array
