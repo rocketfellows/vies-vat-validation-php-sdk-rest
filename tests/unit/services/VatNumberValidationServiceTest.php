@@ -9,6 +9,7 @@ use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\InvalidInputServiceException;
+use rocketfellows\ViesVatValidationInterface\exceptions\service\ServiceUnavailableException;
 use rocketfellows\ViesVatValidationInterface\exceptions\ServiceRequestException;
 use rocketfellows\ViesVatValidationInterface\FaultCodeExceptionFactory;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
@@ -246,22 +247,24 @@ abstract class VatNumberValidationServiceTest extends TestCase
                 'checkVatResponseFault' => '{"errorWrappers": [{"error": "invalid_input"}]}',
                 'expectedExceptionClass' => InvalidInputServiceException::class,
             ],
-            /*'SERVICE_UNAVAILABLE fault' => [
+            'SERVICE_UNAVAILABLE fault' => [
                 'vatNumber' => new VatNumber(
                     'DE',
                     '12312312'
                 ),
                 'checkVatCallArgs' => [
-                    'countryCode' => 'DE',
-                    'vatNumber' => '12312312',
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
                 ],
-                'thrownCheckVatFault' => new SoapFault(
-                    'SERVICE_UNAVAILABLE',
-                    'SERVICE_UNAVAILABLE'
-                ),
+                'checkVatResponseFault' => '{"errorWrappers": [{"error": "SERVICE_UNAVAILABLE"}]}',
                 'expectedExceptionClass' => ServiceUnavailableException::class,
             ],
-            'service_unavailable fault' => [
+            /*'service_unavailable fault' => [
                 'vatNumber' => new VatNumber(
                     'DE',
                     '12312312'
