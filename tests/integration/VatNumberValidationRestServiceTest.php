@@ -23,8 +23,21 @@ class VatNumberValidationRestServiceTest extends TestCase
         );
     }
 
+    /**
+     * @dataProvider getValidateVatHandlingExceptionsProvidedData
+     */
     public function testValidateVatHandlingExceptions(): void
     {
         // TODO: implement
+    }
+
+    public function getValidateVatHandlingExceptionsProvidedData(): array
+    {
+        return [
+            [
+                'vatNumber',
+                'expectedException',
+            ],
+        ];
     }
 }
