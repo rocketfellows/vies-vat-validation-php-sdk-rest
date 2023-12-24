@@ -11,6 +11,34 @@ use stdClass;
  */
 class ResponseErrorFactoryTest extends TestCase
 {
+    public function getResponseWithErrorProvidedData(): array
+    {
+        return [
+            'error wrappers is null' => [
+                'responseData' => (object)[
+                    'errorWrappers' => null,
+                ],
+                'isResponseWithError' => false,
+            ],
+            'error wrappers not found' => [
+                'responseData' => (object)[],
+                'isResponseWithError' => false,
+            ],
+            'error wrappers set and not an array' => [
+                'responseData' => (object)[
+                    'errorWrappers' => 1234,
+                ],
+                'isResponseWithError' => false,
+            ],
+            'error wrappers set and an array' => [
+                'responseData' => (object)[
+                    'errorWrappers' => [],
+                ],
+                'isResponseWithError' => true,
+            ],
+        ];
+    }
+
     /**
      * @dataProvider getResponseErrorCodeProvidedData
      */
