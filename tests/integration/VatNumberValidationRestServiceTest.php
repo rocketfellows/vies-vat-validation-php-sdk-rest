@@ -63,6 +63,16 @@ class VatNumberValidationRestServiceTest extends TestCase
                     'address' => '123 Main St, Anytown, UK',
                 ],
             ],
+            'invalid vat' => [
+                'vatNumber' => new VatNumber('DE', '200'),
+                'expectedValidationResultData' => [
+                    'countryCode' => 'DE',
+                    'vatNumber' => '200',
+                    'isValid' => false,
+                    'name' => '---',
+                    'address' => '---',
+                ],
+            ],
         ];
     }
 
