@@ -30,7 +30,7 @@ class ResponseFactoryTest extends TestCase
     {
         return [
             'country code set, vat number set, request date set, validation flag set true, name set, address set' => [
-                'responseData' => (object)[
+                'responseData' => (object) [
                     'countryCode' => 'DE',
                     'vatNumber' => '1234',
                     'requestDate' => '2023-12-12 10:10:10',
@@ -47,7 +47,7 @@ class ResponseFactoryTest extends TestCase
                 ),
             ],
             'country code set, vat number set, request date set, validation flag set false, name set, address set' => [
-                'responseData' => (object)[
+                'responseData' => (object) [
                     'countryCode' => 'DE',
                     'vatNumber' => '1234',
                     'requestDate' => '2023-12-12 10:10:10',
@@ -64,7 +64,7 @@ class ResponseFactoryTest extends TestCase
                 ),
             ],
             'country code empty, vat number empty, request date empty, validation flag empty, name empty, address empty' => [
-                'responseData' => (object)[
+                'responseData' => (object) [
                     'countryCode' => '',
                     'vatNumber' => '',
                     'requestDate' => '',
@@ -81,7 +81,7 @@ class ResponseFactoryTest extends TestCase
                 ),
             ],
             'country code not set, vat number not set, request date not set, validation flag not set, name not set, address not set' => [
-                'responseData' => (object)[],
+                'responseData' => (object) [],
                 'expectedVatNumberValidationResult' => new VatNumberValidationResult(
                     (new VatNumber('', '')),
                     '',
