@@ -139,7 +139,7 @@ abstract class VatNumberValidationServiceTest extends TestCase
                     'bar'
                 ),
             ],
-            /*'response country code not set, vat number not set, request date not set, validation not set, name not set, address not set' => [
+            'response country code not set, vat number not set, request date not set, validation not set, name not set, address not set' => [
                 'vatNumber' => new VatNumber(
                     'DE',
                     '12312312'
@@ -153,7 +153,7 @@ abstract class VatNumberValidationServiceTest extends TestCase
                         ],
                     ]
                 ],
-                'checkVatResponse' => (object) [],
+                'checkVatResponse' => '{}',
                 'expectedVatNumberValidationResult' => new VatNumberValidationResult(
                     new VatNumber('', ''),
                     '',
@@ -162,7 +162,7 @@ abstract class VatNumberValidationServiceTest extends TestCase
                     null
                 ),
             ],
-            'response country code empty, vat number empty, request date empty, not valid, name empty, address empty' => [
+            /*'response country code empty, vat number empty, request date empty, not valid, name empty, address empty' => [
                 'vatNumber' => new VatNumber(
                     'DE',
                     '12312312'
