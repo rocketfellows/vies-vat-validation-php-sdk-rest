@@ -5,22 +5,26 @@ namespace rocketfellows\ViesVatValidationRest\tests\integration;
 use GuzzleHttp\Client;
 use PHPUnit\Framework\TestCase;
 use rocketfellows\ViesVatValidationInterface\FaultCodeExceptionFactory;
-use rocketfellows\ViesVatValidationRest\services\VatNumberValidationRestService;
 
 /**
  * @group vies-vat-validation-rest
  */
 class VatNumberValidationRestServiceTest extends TestCase
 {
-    private $vatNumberValidationRestService;
+    private $testVatNumberValidationRestService;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->vatNumberValidationRestService = new VatNumberValidationRestService(
+        $this->testVatNumberValidationRestService = new TestVatNumberValidationRestService(
             (new Client()),
             (new FaultCodeExceptionFactory())
         );
+    }
+
+    public function testValidateVatHandlingExceptions(): void
+    {
+        // TODO: implement
     }
 }
