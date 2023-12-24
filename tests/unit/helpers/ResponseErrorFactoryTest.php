@@ -11,6 +11,72 @@ use stdClass;
  */
 class ResponseErrorFactoryTest extends TestCase
 {
+    public function getResponseErrorCodeProvidedData(): array
+    {
+        return [
+            'error code set' => [
+                'responseData' => (object)[
+                    'errorWrappers' => [
+                        (object)[
+                            'error' => 'foo',
+                        ]
+                    ],
+                ],
+                'expectedResponseErrorCode' => 'foo',
+            ],
+            'error code empty' => [
+                'responseData' => (object)[
+                    'errorWrappers' => [
+                        (object)[
+                            'error' => '',
+                        ]
+                    ],
+                ],
+                'expectedResponseErrorCode' => '',
+            ],
+            'error code is null' => [
+                'responseData' => (object)[
+                    'errorWrappers' => [
+                        (object)[
+                            'error' => null,
+                        ]
+                    ],
+                ],
+                'expectedResponseErrorCode' => null,
+            ],
+            'error code not found' => [
+                'responseData' => (object)[
+                    'errorWrappers' => [
+                        (object)[]
+                    ],
+                ],
+                'expectedResponseErrorCode' => null,
+            ],
+            'error wrappers empty' => [
+                'responseData' => (object)[
+                    'errorWrappers' => [],
+                ],
+                'expectedResponseErrorCode' => null,
+            ],
+            'error wrappers is null' => [
+                'responseData' => (object)[
+                    'errorWrappers' => null,
+                ],
+                'expectedResponseErrorCode' => null,
+            ],
+            'error wrappers not an array' => [
+                'responseData' => (object)[
+                    'errorWrappers' => true,
+                ],
+                'expectedResponseErrorCode' => null,
+            ],
+            'error wrappers not found' => [
+                'responseData' => (object)[],
+                'expectedResponseErrorCode' => null,
+            ],
+        ];
+    }
+
     /**
      * @dataProvider getResponseErrorMessageProvidedData
      */
