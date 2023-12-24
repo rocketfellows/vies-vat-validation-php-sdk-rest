@@ -23,31 +23,31 @@ class ResponseErrorFactoryTest extends TestCase
     {
         return [
             'error wrappers is null' => [
-                'responseData' => (object)[
+                'responseData' => (object) [
                     'errorWrappers' => null,
                 ],
                 'isResponseWithError' => false,
             ],
             'error wrappers not found' => [
-                'responseData' => (object)[],
+                'responseData' => (object) [],
                 'isResponseWithError' => false,
             ],
             'error wrappers set and not an array' => [
-                'responseData' => (object)[
+                'responseData' => (object) [
                     'errorWrappers' => 1234,
                 ],
                 'isResponseWithError' => false,
             ],
             'error wrappers set and an empty array' => [
-                'responseData' => (object)[
+                'responseData' => (object) [
                     'errorWrappers' => [],
                 ],
                 'isResponseWithError' => true,
             ],
             'error wrappers set and an not empty array' => [
-                'responseData' => (object)[
+                'responseData' => (object) [
                     'errorWrappers' => [
-                        (object)[
+                        (object) [
                             'error' => 'foo',
                             'message' => 'bar',
                         ]
@@ -70,9 +70,9 @@ class ResponseErrorFactoryTest extends TestCase
     {
         return [
             'error code set' => [
-                'responseData' => (object)[
+                'responseData' => (object) [
                     'errorWrappers' => [
-                        (object)[
+                        (object) [
                             'error' => 'foo',
                         ]
                     ],
@@ -80,9 +80,9 @@ class ResponseErrorFactoryTest extends TestCase
                 'expectedResponseErrorCode' => 'foo',
             ],
             'error code empty' => [
-                'responseData' => (object)[
+                'responseData' => (object) [
                     'errorWrappers' => [
-                        (object)[
+                        (object) [
                             'error' => '',
                         ]
                     ],
@@ -90,9 +90,9 @@ class ResponseErrorFactoryTest extends TestCase
                 'expectedResponseErrorCode' => '',
             ],
             'error code is null' => [
-                'responseData' => (object)[
+                'responseData' => (object) [
                     'errorWrappers' => [
-                        (object)[
+                        (object) [
                             'error' => null,
                         ]
                     ],
@@ -100,33 +100,33 @@ class ResponseErrorFactoryTest extends TestCase
                 'expectedResponseErrorCode' => null,
             ],
             'error code not found' => [
-                'responseData' => (object)[
+                'responseData' => (object) [
                     'errorWrappers' => [
-                        (object)[]
+                        (object) []
                     ],
                 ],
                 'expectedResponseErrorCode' => null,
             ],
             'error wrappers empty' => [
-                'responseData' => (object)[
+                'responseData' => (object) [
                     'errorWrappers' => [],
                 ],
                 'expectedResponseErrorCode' => null,
             ],
             'error wrappers is null' => [
-                'responseData' => (object)[
+                'responseData' => (object) [
                     'errorWrappers' => null,
                 ],
                 'expectedResponseErrorCode' => null,
             ],
             'error wrappers not an array' => [
-                'responseData' => (object)[
+                'responseData' => (object) [
                     'errorWrappers' => true,
                 ],
                 'expectedResponseErrorCode' => null,
             ],
             'error wrappers not found' => [
-                'responseData' => (object)[],
+                'responseData' => (object) [],
                 'expectedResponseErrorCode' => null,
             ],
         ];
@@ -147,9 +147,9 @@ class ResponseErrorFactoryTest extends TestCase
     {
         return [
             'error message set' => [
-                'responseData' => (object)[
+                'responseData' => (object) [
                     'errorWrappers' => [
-                        (object)[
+                        (object) [
                             'message' => 'foo',
                         ]
                     ],
@@ -157,9 +157,9 @@ class ResponseErrorFactoryTest extends TestCase
                 'expectedResponseErrorMessage' => 'foo',
             ],
             'error message empty' => [
-                'responseData' => (object)[
+                'responseData' => (object) [
                     'errorWrappers' => [
-                        (object)[
+                        (object) [
                             'message' => '',
                         ]
                     ],
@@ -167,9 +167,9 @@ class ResponseErrorFactoryTest extends TestCase
                 'expectedResponseErrorMessage' => '',
             ],
             'error message is null' => [
-                'responseData' => (object)[
+                'responseData' => (object) [
                     'errorWrappers' => [
-                        (object)[
+                        (object) [
                             'message' => null,
                         ]
                     ],
@@ -177,33 +177,33 @@ class ResponseErrorFactoryTest extends TestCase
                 'expectedResponseErrorMessage' => null,
             ],
             'error message not found' => [
-                'responseData' => (object)[
+                'responseData' => (object) [
                     'errorWrappers' => [
-                        (object)[]
+                        (object) []
                     ],
                 ],
                 'expectedResponseErrorMessage' => null,
             ],
             'error wrappers empty' => [
-                'responseData' => (object)[
+                'responseData' => (object) [
                     'errorWrappers' => [],
                 ],
                 'expectedResponseErrorMessage' => null,
             ],
             'error wrappers is null' => [
-                'responseData' => (object)[
+                'responseData' => (object) [
                     'errorWrappers' => null,
                 ],
                 'expectedResponseErrorMessage' => null,
             ],
             'error wrappers not an array' => [
-                'responseData' => (object)[
+                'responseData' => (object) [
                     'errorWrappers' => true,
                 ],
                 'expectedResponseErrorMessage' => null,
             ],
             'error wrappers not found' => [
-                'responseData' => (object)[],
+                'responseData' => (object) [],
                 'expectedResponseErrorMessage' => null,
             ],
         ];
