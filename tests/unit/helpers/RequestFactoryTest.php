@@ -4,6 +4,7 @@ namespace rocketfellows\ViesVatValidationRest\tests\unit\helpers;
 
 use PHPUnit\Framework\TestCase;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
+use rocketfellows\ViesVatValidationRest\helpers\RequestFactory;
 
 /**
  * @group vies-vat-validation-rest-helpers
@@ -13,9 +14,9 @@ class RequestFactoryTest extends TestCase
     /**
      * @dataProvider getCheckVatNumberRequestProvidedData
      */
-    public function testGetCheckVatNumberRequestData(): void
+    public function testGetCheckVatNumberRequestData(VatNumber $vatNumber, array $expectedRequestData): void
     {
-        // TODO: implement
+        $this->assertEquals($expectedRequestData, RequestFactory::getCheckVatNumberRequestData($vatNumber));
     }
 
     public function getCheckVatNumberRequestProvidedData(): array
