@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 use PHPUnit\Framework\TestCase;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\InvalidInputServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\InvalidRequesterInfoServiceException;
+use rocketfellows\ViesVatValidationInterface\exceptions\service\IPBlockedServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\MSUnavailableServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\ServiceUnavailableException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\TimeoutServiceException;
@@ -44,7 +45,6 @@ class VatNumberValidationRestServiceTest extends TestCase
     {
         // 100 = Valid request with Valid VAT Number
 		// 200 = Valid request with an Invalid VAT Number
-		// 401 = Error : IP_BLOCKED
 		// 500 = Error : GLOBAL_MAX_CONCURRENT_REQ
 		// 501 = Error : GLOBAL_MAX_CONCURRENT_REQ_TIME
 		// 600 = Error : MS_MAX_CONCURRENT_REQ
@@ -74,6 +74,10 @@ class VatNumberValidationRestServiceTest extends TestCase
             'VAT_BLOCKED error' => [
                 'vatNumber' => new VatNumber('DE', '400'),
                 'expectedExceptionClass' => VatBlockedServiceException::class,
+            ],
+            'IP_BLOCKED error' => [
+                'vatNumber' => new VatNumber('DE', '401'),
+                'expectedExceptionClass' => IPBlockedServiceException::class,
             ],
         ];
     }
