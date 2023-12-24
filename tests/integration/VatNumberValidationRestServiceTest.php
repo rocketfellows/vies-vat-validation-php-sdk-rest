@@ -47,9 +47,6 @@ class VatNumberValidationRestServiceTest extends TestCase
 
     public function getValidateVatHandlingExceptionsProvidedData(): array
     {
-        // 100 = Valid request with Valid VAT Number
-		// 200 = Valid request with an Invalid VAT Number
-
         return [
             'INVALID_INPUT error' => [
                 'vatNumber' => new VatNumber('DE', '201'),
