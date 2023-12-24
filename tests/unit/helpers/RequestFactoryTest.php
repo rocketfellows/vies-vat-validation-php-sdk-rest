@@ -20,6 +20,13 @@ class RequestFactoryTest extends TestCase
                     'vatNumber' => '1213',
                 ],
             ],
+            'country code not set, vat number not set' => [
+                'vatNumber' => new VatNumber('', ''),
+                'expectedRequestData' => [
+                    'countryCode' => '',
+                    'vatNumber' => '',
+                ],
+            ],
         ];
     }
 }
