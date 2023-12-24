@@ -369,22 +369,24 @@ abstract class VatNumberValidationServiceTest extends TestCase
                 'checkVatResponseFault' => '{"errorWrappers": [{"error": "INVALID_REQUESTER_INFO"}]}',
                 'expectedExceptionClass' => InvalidRequesterInfoServiceException::class,
             ],
-            /*'invalid_requester_info fault' => [
+            'invalid_requester_info fault' => [
                 'vatNumber' => new VatNumber(
                     'DE',
                     '12312312'
                 ),
                 'checkVatCallArgs' => [
-                    'countryCode' => 'DE',
-                    'vatNumber' => '12312312',
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
                 ],
-                'thrownCheckVatFault' => new SoapFault(
-                    'invalid_requester_info',
-                    'invalid_requester_info'
-                ),
+                'checkVatResponseFault' => '{"errorWrappers": [{"error": "invalid_requester_info"}]}',
                 'expectedExceptionClass' => InvalidRequesterInfoServiceException::class,
             ],
-            'VAT_BLOCKED fault' => [
+            /*'VAT_BLOCKED fault' => [
                 'vatNumber' => new VatNumber(
                     'DE',
                     '12312312'
