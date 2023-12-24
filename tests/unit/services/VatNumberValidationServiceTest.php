@@ -8,6 +8,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
+use rocketfellows\ViesVatValidationInterface\exceptions\service\GlobalMaxConcurrentReqServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\InvalidInputServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\InvalidRequesterInfoServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\IPBlockedServiceException;
@@ -456,22 +457,24 @@ abstract class VatNumberValidationServiceTest extends TestCase
                 'checkVatResponseFault' => '{"errorWrappers": [{"error": "ip_blocked"}]}',
                 'expectedExceptionClass' => IPBlockedServiceException::class,
             ],
-            /*'GLOBAL_MAX_CONCURRENT_REQ fault' => [
+            'GLOBAL_MAX_CONCURRENT_REQ fault' => [
                 'vatNumber' => new VatNumber(
                     'DE',
                     '12312312'
                 ),
                 'checkVatCallArgs' => [
-                    'countryCode' => 'DE',
-                    'vatNumber' => '12312312',
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
                 ],
-                'thrownCheckVatFault' => new SoapFault(
-                    'GLOBAL_MAX_CONCURRENT_REQ',
-                    'GLOBAL_MAX_CONCURRENT_REQ'
-                ),
+                'checkVatResponseFault' => '{"errorWrappers": [{"error": "GLOBAL_MAX_CONCURRENT_REQ"}]}',
                 'expectedExceptionClass' => GlobalMaxConcurrentReqServiceException::class,
             ],
-            'global_max_concurrent_req fault' => [
+            /*'global_max_concurrent_req fault' => [
                 'vatNumber' => new VatNumber(
                     'DE',
                     '12312312'
