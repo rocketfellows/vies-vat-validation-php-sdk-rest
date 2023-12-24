@@ -9,6 +9,7 @@ use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\InvalidInputServiceException;
+use rocketfellows\ViesVatValidationInterface\exceptions\service\InvalidRequesterInfoServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\MSUnavailableServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\ServiceUnavailableException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\TimeoutServiceException;
@@ -351,22 +352,24 @@ abstract class VatNumberValidationServiceTest extends TestCase
                 'checkVatResponseFault' => '{"errorWrappers": [{"error": "timeout"}]}',
                 'expectedExceptionClass' => TimeoutServiceException::class,
             ],
-            /*'INVALID_REQUESTER_INFO fault' => [
+            'INVALID_REQUESTER_INFO fault' => [
                 'vatNumber' => new VatNumber(
                     'DE',
                     '12312312'
                 ),
                 'checkVatCallArgs' => [
-                    'countryCode' => 'DE',
-                    'vatNumber' => '12312312',
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
                 ],
-                'thrownCheckVatFault' => new SoapFault(
-                    'INVALID_REQUESTER_INFO',
-                    'INVALID_REQUESTER_INFO'
-                ),
+                'checkVatResponseFault' => '{"errorWrappers": [{"error": "INVALID_REQUESTER_INFO"}]}',
                 'expectedExceptionClass' => InvalidRequesterInfoServiceException::class,
             ],
-            'invalid_requester_info fault' => [
+            /*'invalid_requester_info fault' => [
                 'vatNumber' => new VatNumber(
                     'DE',
                     '12312312'
