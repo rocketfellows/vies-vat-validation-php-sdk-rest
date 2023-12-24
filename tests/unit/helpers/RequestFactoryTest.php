@@ -10,6 +10,14 @@ use rocketfellows\ViesVatValidationInterface\VatNumber;
  */
 class RequestFactoryTest extends TestCase
 {
+    /**
+     * @dataProvider getCheckVatNumberRequestProvidedData
+     */
+    public function testGetCheckVatNumberRequestData(): void
+    {
+        // TODO: implement
+    }
+
     public function getCheckVatNumberRequestProvidedData(): array
     {
         return [
