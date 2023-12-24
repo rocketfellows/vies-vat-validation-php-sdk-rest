@@ -107,6 +107,14 @@ class ResponseErrorFactoryTest extends TestCase
                 ],
                 'expectedResponseErrorCode' => null,
             ],
+            'error wrappers with one empty array' => [
+                'responseData' => (object) [
+                    'errorWrappers' => [
+                        []
+                    ],
+                ],
+                'expectedResponseErrorMessage' => null,
+            ],
             'error wrappers empty' => [
                 'responseData' => (object) [
                     'errorWrappers' => [],
@@ -176,10 +184,18 @@ class ResponseErrorFactoryTest extends TestCase
                 ],
                 'expectedResponseErrorMessage' => null,
             ],
-            'error message not found' => [
+            'error wrappers with one empty object' => [
                 'responseData' => (object) [
                     'errorWrappers' => [
                         (object) []
+                    ],
+                ],
+                'expectedResponseErrorMessage' => null,
+            ],
+            'error wrappers with one empty array' => [
+                'responseData' => (object) [
+                    'errorWrappers' => [
+                        []
                     ],
                 ],
                 'expectedResponseErrorMessage' => null,
