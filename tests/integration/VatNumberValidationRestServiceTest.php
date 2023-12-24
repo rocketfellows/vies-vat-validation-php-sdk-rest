@@ -5,6 +5,7 @@ namespace rocketfellows\ViesVatValidationRest\tests\integration;
 use GuzzleHttp\Client;
 use PHPUnit\Framework\TestCase;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\GlobalMaxConcurrentReqServiceException;
+use rocketfellows\ViesVatValidationInterface\exceptions\service\GlobalMaxConcurrentReqTimeServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\InvalidInputServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\InvalidRequesterInfoServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\IPBlockedServiceException;
@@ -46,7 +47,6 @@ class VatNumberValidationRestServiceTest extends TestCase
     {
         // 100 = Valid request with Valid VAT Number
 		// 200 = Valid request with an Invalid VAT Number
-		// 501 = Error : GLOBAL_MAX_CONCURRENT_REQ_TIME
 		// 600 = Error : MS_MAX_CONCURRENT_REQ
 		// 601 = Error : MS_MAX_CONCURRENT_REQ_TIME
 
@@ -82,6 +82,10 @@ class VatNumberValidationRestServiceTest extends TestCase
             'GLOBAL_MAX_CONCURRENT_REQ error' => [
                 'vatNumber' => new VatNumber('DE', '500'),
                 'expectedExceptionClass' => GlobalMaxConcurrentReqServiceException::class,
+            ],
+            'GLOBAL_MAX_CONCURRENT_REQ_TIME error' => [
+                'vatNumber' => new VatNumber('DE', '501'),
+                'expectedExceptionClass' => GlobalMaxConcurrentReqTimeServiceException::class,
             ],
         ];
     }
