@@ -3,6 +3,7 @@
 namespace rocketfellows\ViesVatValidationRest\tests\unit\services;
 
 use rocketfellows\ViesVatValidationInterface\VatNumberValidationServiceInterface;
+use rocketfellows\ViesVatValidationRest\services\VatNumberValidationRestService;
 
 /**
  * @group vies-vat-validation-rest
