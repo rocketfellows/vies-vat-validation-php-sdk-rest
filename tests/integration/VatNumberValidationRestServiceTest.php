@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 use PHPUnit\Framework\TestCase;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\InvalidInputServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\InvalidRequesterInfoServiceException;
+use rocketfellows\ViesVatValidationInterface\exceptions\service\MSUnavailableServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\ServiceUnavailableException;
 use rocketfellows\ViesVatValidationInterface\FaultCodeExceptionFactory;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
@@ -41,8 +42,6 @@ class VatNumberValidationRestServiceTest extends TestCase
     {
         // 100 = Valid request with Valid VAT Number
 		// 200 = Valid request with an Invalid VAT Number
-		// 300 = Error : SERVICE_UNAVAILABLE
-		// 301 = Error : MS_UNAVAILABLE
 		// 302 = Error : TIMEOUT
 		// 400 = Error : VAT_BLOCKED
 		// 401 = Error : IP_BLOCKED
@@ -63,6 +62,10 @@ class VatNumberValidationRestServiceTest extends TestCase
             'SERVICE_UNAVAILABLE error' => [
                 'vatNumber' => new VatNumber('DE', '300'),
                 'expectedExceptionClass' => ServiceUnavailableException::class,
+            ],
+            'MS_UNAVAILABLE error' => [
+                'vatNumber' => new VatNumber('DE', '301'),
+                'expectedExceptionClass' => MSUnavailableServiceException::class,
             ],
         ];
     }
