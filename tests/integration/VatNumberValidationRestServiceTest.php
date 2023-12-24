@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 use PHPUnit\Framework\TestCase;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\InvalidInputServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\InvalidRequesterInfoServiceException;
+use rocketfellows\ViesVatValidationInterface\exceptions\service\ServiceUnavailableException;
 use rocketfellows\ViesVatValidationInterface\FaultCodeExceptionFactory;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
 
@@ -58,6 +59,10 @@ class VatNumberValidationRestServiceTest extends TestCase
             'INVALID_REQUESTER_INFO error' => [
                 'vatNumber' => new VatNumber('DE', '202'),
                 'expectedExceptionClass' => InvalidRequesterInfoServiceException::class,
+            ],
+            'SERVICE_UNAVAILABLE error' => [
+                'vatNumber' => new VatNumber('DE', '300'),
+                'expectedExceptionClass' => ServiceUnavailableException::class,
             ],
         ];
     }
