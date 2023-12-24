@@ -10,6 +10,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\InvalidInputServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\InvalidRequesterInfoServiceException;
+use rocketfellows\ViesVatValidationInterface\exceptions\service\IPBlockedServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\MSUnavailableServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\ServiceUnavailableException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\TimeoutServiceException;
@@ -421,22 +422,24 @@ abstract class VatNumberValidationServiceTest extends TestCase
                 'checkVatResponseFault' => '{"errorWrappers": [{"error": "vat_blocked"}]}',
                 'expectedExceptionClass' => VatBlockedServiceException::class,
             ],
-            /*'IP_BLOCKED fault' => [
+            'IP_BLOCKED fault' => [
                 'vatNumber' => new VatNumber(
                     'DE',
                     '12312312'
                 ),
                 'checkVatCallArgs' => [
-                    'countryCode' => 'DE',
-                    'vatNumber' => '12312312',
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
                 ],
-                'thrownCheckVatFault' => new SoapFault(
-                    'IP_BLOCKED',
-                    'IP_BLOCKED'
-                ),
+                'checkVatResponseFault' => '{"errorWrappers": [{"error": "IP_BLOCKED"}]}',
                 'expectedExceptionClass' => IPBlockedServiceException::class,
             ],
-            'ip_blocked fault' => [
+            /*'ip_blocked fault' => [
                 'vatNumber' => new VatNumber(
                     'DE',
                     '12312312'
