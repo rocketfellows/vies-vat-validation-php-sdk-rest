@@ -35,6 +35,11 @@ class VatNumberValidationRestServiceTest extends TestCase
         );
     }
 
+    public function testValidateVat(): void
+    {
+        // TODO: implement
+    }
+
     /**
      * @dataProvider getValidateVatHandlingExceptionsProvidedData
      */
