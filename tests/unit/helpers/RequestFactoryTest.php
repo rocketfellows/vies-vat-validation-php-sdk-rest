@@ -9,4 +9,13 @@ use PHPUnit\Framework\TestCase;
  */
 class RequestFactoryTest extends TestCase
 {
+    public function getCheckVatNumberRequestProvidedData(): array
+    {
+        return [
+            [
+                'vatNumber',
+                'expectedRequestData',
+            ],
+        ];
+    }
 }
