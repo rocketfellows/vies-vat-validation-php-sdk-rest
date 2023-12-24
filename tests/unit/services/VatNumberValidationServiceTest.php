@@ -13,6 +13,7 @@ use rocketfellows\ViesVatValidationInterface\exceptions\service\GlobalMaxConcurr
 use rocketfellows\ViesVatValidationInterface\exceptions\service\InvalidInputServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\InvalidRequesterInfoServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\IPBlockedServiceException;
+use rocketfellows\ViesVatValidationInterface\exceptions\service\MSMaxConcurrentReqServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\MSUnavailableServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\ServiceUnavailableException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\TimeoutServiceException;
@@ -526,22 +527,24 @@ abstract class VatNumberValidationServiceTest extends TestCase
                 'checkVatResponseFault' => '{"errorWrappers": [{"error": "global_max_concurrent_req_time"}]}',
                 'expectedExceptionClass' => GlobalMaxConcurrentReqTimeServiceException::class,
             ],
-            /*'MS_MAX_CONCURRENT_REQ fault' => [
+            'MS_MAX_CONCURRENT_REQ fault' => [
                 'vatNumber' => new VatNumber(
                     'DE',
                     '12312312'
                 ),
                 'checkVatCallArgs' => [
-                    'countryCode' => 'DE',
-                    'vatNumber' => '12312312',
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
                 ],
-                'thrownCheckVatFault' => new SoapFault(
-                    'MS_MAX_CONCURRENT_REQ',
-                    'MS_MAX_CONCURRENT_REQ'
-                ),
+                'checkVatResponseFault' => '{"errorWrappers": [{"error": "MS_MAX_CONCURRENT_REQ"}]}',
                 'expectedExceptionClass' => MSMaxConcurrentReqServiceException::class,
             ],
-            'ms_max_concurrent_req fault' => [
+            /*'ms_max_concurrent_req fault' => [
                 'vatNumber' => new VatNumber(
                     'DE',
                     '12312312'
