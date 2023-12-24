@@ -39,7 +39,7 @@ class VatNumberValidationRestServiceTest extends TestCase
     /**
      * @dataProvider getValidateVatProvidedData
      */
-    public function testValidateVat(VatNumber $vatNumber, VatNumberValidationResult $expectedValidationResult): void
+    public function testValidateVat(VatNumber $vatNumber, array $expectedValidationResultData): void
     {
         // TODO: implement
     }
@@ -47,9 +47,15 @@ class VatNumberValidationRestServiceTest extends TestCase
     public function getValidateVatProvidedData(): array
     {
         return [
-            [
-                'vatNumber',
-                'expectedValidationResult',
+            'valid vat' => [
+                'vatNumber' => new VatNumber('DE', '100'),
+                'expectedValidationResultData' => [
+                    'countryCode' => 'DE',
+                    'vatNumber' => '100',
+                    'isValid' => true,
+                    'name' => 'John Doe',
+                    'address' => '123 Main St, Anytown, UK',
+                ],
             ],
         ];
     }
