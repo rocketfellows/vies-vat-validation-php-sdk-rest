@@ -17,6 +17,7 @@ use rocketfellows\ViesVatValidationInterface\exceptions\service\TimeoutServiceEx
 use rocketfellows\ViesVatValidationInterface\exceptions\service\VatBlockedServiceException;
 use rocketfellows\ViesVatValidationInterface\FaultCodeExceptionFactory;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
+use rocketfellows\ViesVatValidationInterface\VatNumberValidationResult;
 
 /**
  * @group vies-vat-validation-rest
@@ -35,9 +36,22 @@ class VatNumberValidationRestServiceTest extends TestCase
         );
     }
 
-    public function testValidateVat(): void
+    /**
+     * @dataProvider getValidateVatProvidedData
+     */
+    public function testValidateVat(VatNumber $vatNumber, VatNumberValidationResult $expectedValidationResult): void
     {
         // TODO: implement
+    }
+
+    public function getValidateVatProvidedData(): array
+    {
+        return [
+            [
+                'vatNumber',
+                'expectedValidationResult',
+            ],
+        ];
     }
 
     /**
