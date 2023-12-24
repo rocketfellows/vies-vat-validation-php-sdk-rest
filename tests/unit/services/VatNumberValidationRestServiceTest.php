@@ -10,6 +10,8 @@ use rocketfellows\ViesVatValidationRest\services\VatNumberValidationRestService;
  */
 class VatNumberValidationRestServiceTest extends VatNumberValidationServiceTest
 {
+    protected const EXPECTED_URL_SOURCE = 'https://ec.europa.eu/taxation_customs/vies/rest-api/check-vat-number';
+
     protected function getVatNumberValidationRestService(): VatNumberValidationServiceInterface
     {
         return new VatNumberValidationRestService($this->client, $this->faultCodeExceptionFactory);
