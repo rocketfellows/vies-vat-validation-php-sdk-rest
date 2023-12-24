@@ -9,6 +9,7 @@ use rocketfellows\ViesVatValidationInterface\exceptions\service\GlobalMaxConcurr
 use rocketfellows\ViesVatValidationInterface\exceptions\service\InvalidInputServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\InvalidRequesterInfoServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\IPBlockedServiceException;
+use rocketfellows\ViesVatValidationInterface\exceptions\service\MSMaxConcurrentReqServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\MSUnavailableServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\ServiceUnavailableException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\TimeoutServiceException;
@@ -47,7 +48,6 @@ class VatNumberValidationRestServiceTest extends TestCase
     {
         // 100 = Valid request with Valid VAT Number
 		// 200 = Valid request with an Invalid VAT Number
-		// 600 = Error : MS_MAX_CONCURRENT_REQ
 		// 601 = Error : MS_MAX_CONCURRENT_REQ_TIME
 
         return [
@@ -86,6 +86,10 @@ class VatNumberValidationRestServiceTest extends TestCase
             'GLOBAL_MAX_CONCURRENT_REQ_TIME error' => [
                 'vatNumber' => new VatNumber('DE', '501'),
                 'expectedExceptionClass' => GlobalMaxConcurrentReqTimeServiceException::class,
+            ],
+            'MS_MAX_CONCURRENT_REQ error' => [
+                'vatNumber' => new VatNumber('DE', '600'),
+                'expectedExceptionClass' => MSMaxConcurrentReqServiceException::class,
             ],
         ];
     }
