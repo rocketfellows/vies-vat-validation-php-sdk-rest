@@ -69,6 +69,12 @@ class ResponseErrorFactoryTest extends TestCase
                 ],
                 'expectedResponseErrorMessage' => null,
             ],
+            'error wrappers is null' => [
+                'responseData' => (object)[
+                    'errorWrappers' => null,
+                ],
+                'expectedResponseErrorMessage' => null,
+            ],
         ];
     }
 }
