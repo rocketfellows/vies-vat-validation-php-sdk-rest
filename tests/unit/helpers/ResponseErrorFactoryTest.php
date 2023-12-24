@@ -11,6 +11,14 @@ use stdClass;
  */
 class ResponseErrorFactoryTest extends TestCase
 {
+    /**
+     * @dataProvider getResponseWithErrorProvidedData
+     */
+    public function testIsResponseWithError(stdClass $responseData, bool $isResponseWithError): void
+    {
+        $this->assertEquals($isResponseWithError, ResponseErrorFactory::isResponseWithError($responseData));
+    }
+
     public function getResponseWithErrorProvidedData(): array
     {
         return [
@@ -30,9 +38,20 @@ class ResponseErrorFactoryTest extends TestCase
                 ],
                 'isResponseWithError' => false,
             ],
-            'error wrappers set and an array' => [
+            'error wrappers set and an empty array' => [
                 'responseData' => (object)[
                     'errorWrappers' => [],
+                ],
+                'isResponseWithError' => true,
+            ],
+            'error wrappers set and an not empty array' => [
+                'responseData' => (object)[
+                    'errorWrappers' => [
+                        (object)[
+                            'error' => 'foo',
+                            'message' => 'bar',
+                        ]
+                    ],
                 ],
                 'isResponseWithError' => true,
             ],
