@@ -6,7 +6,6 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\ServerException;
-use Psr\Http\Message\ResponseInterface;
 use rocketfellows\ViesVatValidationInterface\exceptions\ServiceRequestException;
 use rocketfellows\ViesVatValidationInterface\FaultCodeExceptionFactory;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
@@ -15,7 +14,6 @@ use rocketfellows\ViesVatValidationInterface\VatNumberValidationServiceInterface
 use rocketfellows\ViesVatValidationRest\helpers\RequestFactory;
 use rocketfellows\ViesVatValidationRest\helpers\ResponseErrorFactory;
 use rocketfellows\ViesVatValidationRest\helpers\ResponseFactory;
-use stdClass;
 
 abstract class AbstractVatNumberValidationRestService implements VatNumberValidationServiceInterface
 {
@@ -35,7 +33,7 @@ abstract class AbstractVatNumberValidationRestService implements VatNumberValida
     public function validateVat(VatNumber $vatNumber): VatNumberValidationResult
     {
         try {
-            $responseData = $this->getResponseData(
+            $responseData = ResponseFactory::getResponseData(
                 $this->client->post(
                     $this->getUrl(),
                     [
@@ -53,7 +51,7 @@ abstract class AbstractVatNumberValidationRestService implements VatNumberValida
 
             return ResponseFactory::getVatNumberValidationResult($responseData);
         } catch (ClientException | ServerException $exception) {
-            $exceptionResponseData = $this->getResponseData($exception->getResponse());
+            $exceptionResponseData = ResponseFactory::getResponseData($exception->getResponse());
 
             throw $this->faultCodeExceptionFactory->create(
                 ResponseErrorFactory::getResponseErrorCode($exceptionResponseData),
@@ -66,10 +64,5 @@ abstract class AbstractVatNumberValidationRestService implements VatNumberValida
                 $exception
             );
         }
-    }
-
-    private function getResponseData(ResponseInterface $response): stdClass
-    {
-        return json_decode((string) $response->getBody());
     }
 }
