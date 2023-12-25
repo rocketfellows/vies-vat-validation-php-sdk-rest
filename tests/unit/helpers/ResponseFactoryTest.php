@@ -27,7 +27,7 @@ class ResponseFactoryTest extends TestCase
     public function getResponseProvidedData(): array
     {
         return [
-            'response body empty' => [
+            'response body empty json' => [
                 'response' => $this->getResponseMock(['body' => '{}']),
                 'expectedResponseData' => (object) [],
             ],
