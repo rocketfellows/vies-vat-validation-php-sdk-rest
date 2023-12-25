@@ -61,6 +61,10 @@ class ResponseFactoryTest extends TestCase
                 'response' => $this->getResponseMock(['body' => '200.123231']),
                 'expectedResponseData' => (object) [],
             ],
+            'response body bool' => [
+                'response' => $this->getResponseMock(['body' => 'true']),
+                'expectedResponseData' => (object) [],
+            ],
         ];
     }
 
