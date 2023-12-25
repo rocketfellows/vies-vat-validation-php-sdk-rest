@@ -13,16 +13,16 @@ class ResponseErrorFactory
 
     public static function getResponseErrorCode(stdClass $responseData): ?string
     {
-        $error = self::getResponseErrorData($responseData);
+        $errorData = self::getResponseErrorData($responseData);
 
-        return !is_null($error) ? ($error->error ?? null) : null;
+        return !is_null($errorData) ? ($errorData->error ?? null) : null;
     }
 
     public static function getResponseErrorMessage(stdClass $responseData): ?string
     {
-        $error = self::getResponseErrorData($responseData);
+        $errorData = self::getResponseErrorData($responseData);
 
-        return !is_null($error) ? ($error->message ?? null) : null;
+        return !is_null($errorData) ? ($errorData->message ?? null) : null;
     }
 
     private static function getResponseErrorData(stdClass $responseData): ?stdClass
