@@ -27,7 +27,10 @@ class ResponseFactoryTest extends TestCase
     public function getResponseDataEmptinessCheckProvidedData(): array
     {
         return [
-            [],
+            'response data empty' => [
+                'responseData' => (object) [],
+                'isResponseDataEmpty' => true,
+            ],
         ];
     }
 
