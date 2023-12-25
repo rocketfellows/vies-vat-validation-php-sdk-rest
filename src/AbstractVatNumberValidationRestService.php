@@ -52,6 +52,7 @@ abstract class AbstractVatNumberValidationRestService implements VatNumberValida
                 );
             }
 
+            // TODO: think about check response signature, may be should throw exception if there is not such set of expected attributes
             return ResponseFactory::getVatNumberValidationResult($responseData);
         } catch (ClientException | ServerException $exception) {
             $exceptionResponseData = ResponseFactory::getResponseData($exception->getResponse());
