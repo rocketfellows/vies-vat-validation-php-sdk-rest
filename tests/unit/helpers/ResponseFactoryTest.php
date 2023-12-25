@@ -13,6 +13,21 @@ use stdClass;
  */
 class ResponseFactoryTest extends TestCase
 {
+    public function testGetResponseData(): void
+    {
+        // TODO: implement
+    }
+
+    public function getResponseProvidedData(): array
+    {
+        return [
+            [
+                'response',
+                'expectedResponseData',
+            ],
+        ];
+    }
+
     /**
      * @dataProvider getVatNumberValidationResultProvidedData
      */
