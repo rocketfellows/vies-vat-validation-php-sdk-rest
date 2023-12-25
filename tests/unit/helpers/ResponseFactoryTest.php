@@ -45,6 +45,10 @@ class ResponseFactoryTest extends TestCase
                 'response' => $this->getResponseMock(['body' => '']),
                 'expectedResponseData' => (object) [],
             ],
+            'response body invalid json string' => [
+                'response' => $this->getResponseMock(['body' => '{,}']),
+                'expectedResponseData' => (object) [],
+            ],
         ];
     }
 
