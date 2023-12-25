@@ -16,9 +16,12 @@ use stdClass;
  */
 class ResponseFactoryTest extends TestCase
 {
-    public function testGetResponseData(): void
+    /**
+     * @dataProvider getResponseProvidedData
+     */
+    public function testGetResponseData(ResponseInterface $response, stdClass $expectedResponseData): void
     {
-        // TODO: implement
+        $this->assertEquals($expectedResponseData, ResponseFactory::getResponseData($response));
     }
 
     public function getResponseProvidedData(): array
