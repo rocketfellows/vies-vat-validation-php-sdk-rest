@@ -2,7 +2,10 @@
 
 namespace rocketfellows\ViesVatValidationRest\tests\unit\helpers;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\StreamInterface;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
 use rocketfellows\ViesVatValidationInterface\VatNumberValidationResult;
 use rocketfellows\ViesVatValidationRest\helpers\ResponseFactory;
@@ -106,5 +109,16 @@ class ResponseFactoryTest extends TestCase
                 ),
             ],
         ];
+    }
+
+    private function getResponseMock(array $params = []): MockObject
+    {
+        $stream = $this->createMock(StreamInterface::class);
+        $stream->method('__toString')->willReturn($params['body'] ?? '');
+
+        $mock = $this->createMock(ResponseInterface::class);
+        $mock->method('getBody')->willReturn($stream);
+
+        return $mock;
     }
 }
