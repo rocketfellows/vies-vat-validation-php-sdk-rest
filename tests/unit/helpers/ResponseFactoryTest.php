@@ -17,6 +17,21 @@ use stdClass;
 class ResponseFactoryTest extends TestCase
 {
     /**
+     * @dataProvider getResponseDataEmptinessCheckProvidedData
+     */
+    public function testIsResponseDataEmpty(stdClass $responseData, bool $isResponseDataEmpty): void
+    {
+        $this->assertEquals($isResponseDataEmpty, ResponseFactory::isResponseDataEmpty($responseData));
+    }
+
+    public function getResponseDataEmptinessCheckProvidedData(): array
+    {
+        return [
+            [],
+        ];
+    }
+
+    /**
      * @dataProvider getResponseProvidedData
      */
     public function testGetResponseData(ResponseInterface $response, stdClass $expectedResponseData): void
