@@ -31,6 +31,10 @@ class ResponseFactoryTest extends TestCase
                 'responseData' => (object) [],
                 'isResponseDataEmpty' => true,
             ],
+            'response data not empty' => [
+                'responseData' => (object) ['foo'],
+                'isResponseDataEmpty' => false,
+            ],
         ];
     }
 
