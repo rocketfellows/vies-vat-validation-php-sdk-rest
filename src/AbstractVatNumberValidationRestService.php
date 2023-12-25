@@ -42,6 +42,9 @@ abstract class AbstractVatNumberValidationRestService implements VatNumberValida
                 )
             );
 
+            // TODO: check $responseData on emptiness with rocketfellows\ViesVatValidationRest\helpers\ResponseFactory::isResponseDataEmpty
+            // TODO: if $responseData empty - throw rocketfellows\ViesVatValidationInterface\exceptions\ServiceRequestException
+
             if (ResponseErrorFactory::isResponseWithError($responseData)) {
                 throw $this->faultCodeExceptionFactory->create(
                     ResponseErrorFactory::getResponseErrorCode($responseData),
