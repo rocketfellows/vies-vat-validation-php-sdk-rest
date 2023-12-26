@@ -791,6 +791,30 @@ abstract class VatNumberValidationServiceTest extends TestCase
                     null
                 ),
             ],
+            'thrown client exception, error code set, error code not set, error message not set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getClientExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{}]}']),
+                ]),
+                'expectedException' => new UnknownServiceErrorException(
+                    '',
+                    '',
+                    0,
+                    null
+                ),
+            ],
             'thrown client exception, error code set, error code INVALID_INPUT, error message set' => [
                 'vatNumber' => new VatNumber(
                     'DE',
