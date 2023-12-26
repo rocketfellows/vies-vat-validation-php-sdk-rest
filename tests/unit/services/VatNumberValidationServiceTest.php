@@ -936,7 +936,31 @@ abstract class VatNumberValidationServiceTest extends TestCase
             ],
             // TODO: more test cases needed
             // TODO
-            'thrown server exception, error code set, error code unknown, error message set' => [
+            'thrown client exception, error code unknown, error message set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getClientExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{"error": "foo", "message": "bar"}]}']),
+                ]),
+                'expectedException' => new UnknownServiceErrorException(
+                    'foo',
+                    'bar',
+                    0,
+                    null
+                ),
+            ],
+            'thrown server exception, error code unknown, error message empty' => [
                 'vatNumber' => new VatNumber(
                     'DE',
                     '12312312'
@@ -951,11 +975,179 @@ abstract class VatNumberValidationServiceTest extends TestCase
                     ]
                 ],
                 'thrownRequestException' => $this->getServerExceptionMock([
-                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{"error": "foo", "message": "bar"}]}']),
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{"error": "foo", "message": ""}]}']),
                 ]),
                 'expectedException' => new UnknownServiceErrorException(
                     'foo',
-                    'bar',
+                    '',
+                    0,
+                    null
+                ),
+            ],
+            'thrown server exception, error code unknown, error message not set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getServerExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{"error": "foo"}]}']),
+                ]),
+                'expectedException' => new UnknownServiceErrorException(
+                    'foo',
+                    '',
+                    0,
+                    null
+                ),
+            ],
+            'thrown server exception, error code empty, error message not set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getServerExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{"error": ""}]}']),
+                ]),
+                'expectedException' => new UnknownServiceErrorException(
+                    '',
+                    '',
+                    0,
+                    null
+                ),
+            ],
+            'thrown server exception, error code not set, error message not set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getServerExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{}]}']),
+                ]),
+                'expectedException' => new UnknownServiceErrorException(
+                    '',
+                    '',
+                    0,
+                    null
+                ),
+            ],
+            'thrown server exception, errors block empty' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getServerExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": []}']),
+                ]),
+                'expectedException' => new UnknownServiceErrorException(
+                    '',
+                    '',
+                    0,
+                    null
+                ),
+            ],
+            'thrown server exception, errors block not an array' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getServerExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": null}']),
+                ]),
+                'expectedException' => new UnknownServiceErrorException(
+                    '',
+                    '',
+                    0,
+                    null
+                ),
+            ],
+            'thrown server exception, errors block not set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getServerExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{}']),
+                ]),
+                'expectedException' => new UnknownServiceErrorException(
+                    '',
+                    '',
+                    0,
+                    null
+                ),
+            ],
+            'thrown server exception, response empty' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getServerExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '']),
+                ]),
+                'expectedException' => new UnknownServiceErrorException(
+                    '',
+                    '',
                     0,
                     null
                 ),
