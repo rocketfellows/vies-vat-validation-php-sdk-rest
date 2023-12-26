@@ -7,6 +7,7 @@ use stdClass;
 class ResponseErrorFactory
 {
     private const EMPTY_ERROR_CODE = '';
+    private const EMPTY_ERROR_MESSAGE = '';
 
     public static function isResponseWithError(stdClass $responseData): bool
     {
@@ -20,11 +21,11 @@ class ResponseErrorFactory
         return !is_null($errorData) ? ($errorData->error ?? self::EMPTY_ERROR_CODE) : self::EMPTY_ERROR_CODE;
     }
 
-    public static function getResponseErrorMessage(stdClass $responseData): ?string
+    public static function getResponseErrorMessage(stdClass $responseData): string
     {
         $errorData = self::getResponseErrorData($responseData);
 
-        return !is_null($errorData) ? ($errorData->message ?? null) : null;
+        return !is_null($errorData) ? ($errorData->message ?? self::EMPTY_ERROR_MESSAGE) : self::EMPTY_ERROR_MESSAGE;
     }
 
     private static function getResponseErrorData(stdClass $responseData): ?stdClass

@@ -182,7 +182,7 @@ class ResponseErrorFactoryTest extends TestCase
                         ]
                     ],
                 ],
-                'expectedResponseErrorMessage' => null,
+                'expectedResponseErrorMessage' => '',
             ],
             'error wrappers with one empty object' => [
                 'responseData' => (object) [
@@ -190,7 +190,7 @@ class ResponseErrorFactoryTest extends TestCase
                         (object) []
                     ],
                 ],
-                'expectedResponseErrorMessage' => null,
+                'expectedResponseErrorMessage' => '',
             ],
             'error wrappers with one empty array' => [
                 'responseData' => (object) [
@@ -198,29 +198,29 @@ class ResponseErrorFactoryTest extends TestCase
                         []
                     ],
                 ],
-                'expectedResponseErrorMessage' => null,
+                'expectedResponseErrorMessage' => '',
             ],
             'error wrappers empty' => [
                 'responseData' => (object) [
                     'errorWrappers' => [],
                 ],
-                'expectedResponseErrorMessage' => null,
+                'expectedResponseErrorMessage' => '',
             ],
             'error wrappers is null' => [
                 'responseData' => (object) [
                     'errorWrappers' => null,
                 ],
-                'expectedResponseErrorMessage' => null,
+                'expectedResponseErrorMessage' => '',
             ],
             'error wrappers not an array' => [
                 'responseData' => (object) [
                     'errorWrappers' => true,
                 ],
-                'expectedResponseErrorMessage' => null,
+                'expectedResponseErrorMessage' => '',
             ],
             'error wrappers not found' => [
                 'responseData' => (object) [],
-                'expectedResponseErrorMessage' => null,
+                'expectedResponseErrorMessage' => '',
             ],
         ];
     }
