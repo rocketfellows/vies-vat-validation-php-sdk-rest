@@ -26,7 +26,7 @@ class ResponseErrorFactoryTest extends TestCase
                 'responseData' => (object) [
                     'errorWrappers' => null,
                 ],
-                'isResponseWithError' => false,
+                'isResponseWithError' => true,
             ],
             'error wrappers not found' => [
                 'responseData' => (object) [],
@@ -36,7 +36,7 @@ class ResponseErrorFactoryTest extends TestCase
                 'responseData' => (object) [
                     'errorWrappers' => 1234,
                 ],
-                'isResponseWithError' => false,
+                'isResponseWithError' => true,
             ],
             'error wrappers set and an empty array' => [
                 'responseData' => (object) [

@@ -6,13 +6,14 @@ use stdClass;
 
 class ResponseErrorFactory
 {
+    private const RESPONSE_DATA_PROPERTY_ERROR_WRAPPERS = 'errorWrappers';
+
     private const EMPTY_ERROR_CODE = '';
     private const EMPTY_ERROR_MESSAGE = '';
 
     public static function isResponseWithError(stdClass $responseData): bool
     {
-        // TODO: check $responseData object has attribute errorWrappers - if has then response with error
-        return !is_null(self::getResponseErrorWrappers($responseData));
+        return property_exists($responseData, self::RESPONSE_DATA_PROPERTY_ERROR_WRAPPERS);
     }
 
     public static function getResponseErrorCode(stdClass $responseData): string
