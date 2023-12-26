@@ -679,7 +679,7 @@ abstract class VatNumberValidationServiceTest extends TestCase
         VatNumber $vatNumber,
         array $checkVatCallArgs,
         Exception $thrownRequestException,
-        string $expectedExceptionClass
+        Exception $expectedException
     ): void {
         $this->client
             ->expects($this->once())
@@ -687,7 +687,7 @@ abstract class VatNumberValidationServiceTest extends TestCase
             ->with(...$checkVatCallArgs)
             ->willThrowException($thrownRequestException);
 
-        $this->expectException($expectedExceptionClass);
+        $this->expectExceptionObject($expectedException);
 
         $this->vatNumberValidationRestService->validateVat($vatNumber);
     }
@@ -695,7 +695,7 @@ abstract class VatNumberValidationServiceTest extends TestCase
     public function getValidateVatHandlingRequestExceptionsProvidedData(): array
     {
         return [
-            [
+            'thrown client exception, error code set, error code unknown, error message not set' => [
                 'vatNumber' => new VatNumber(
                     'DE',
                     '12312312'
@@ -709,8 +709,10 @@ abstract class VatNumberValidationServiceTest extends TestCase
                         ],
                     ]
                 ],
-                'thrownRequestException',
-                'expectedExceptionClass',
+                'thrownRequestException' => $this->getClientExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{"error": "foo"}]}']),
+                ]),
+                'expectedException' => new UnknownServiceErrorException('foo', '', 0, null),
             ],
         ];
     }
