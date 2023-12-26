@@ -743,6 +743,54 @@ abstract class VatNumberValidationServiceTest extends TestCase
                 ),
             ],
             // TODO: more test cases needed
+            // TODO
+            'thrown server exception, error code set, error code unknown, error message set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getServerExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{"error": "foo", "message": "bar"}]}']),
+                ]),
+                'expectedException' => new UnknownServiceErrorException(
+                    'foo',
+                    'bar',
+                    0,
+                    null
+                ),
+            ],
+            'thrown server exception, error code set, error code INVALID_INPUT, error message set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getServerExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{"error": "INVALID_INPUT", "message": "bar"}]}']),
+                ]),
+                'expectedException' => new InvalidInputServiceException(
+                    'bar',
+                    0,
+                    null
+                ),
+            ],
         ];
     }
 
