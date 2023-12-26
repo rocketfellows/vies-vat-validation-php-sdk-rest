@@ -2,8 +2,12 @@
 
 namespace rocketfellows\ViesVatValidationRest\tests\unit\services;
 
+use Exception;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\BadResponseException;
+use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Exception\ServerException;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
@@ -668,6 +672,49 @@ abstract class VatNumberValidationServiceTest extends TestCase
         ];
     }
 
+    /**
+     * @dataProvider getValidateVatHandlingRequestExceptionsProvidedData
+     */
+    public function testValidateVatHandlingRequestExceptions(
+        VatNumber $vatNumber,
+        array $checkVatCallArgs,
+        Exception $thrownRequestException,
+        string $expectedExceptionClass
+    ): void {
+        $this->client
+            ->expects($this->once())
+            ->method('post')
+            ->with(...$checkVatCallArgs)
+            ->willThrowException($thrownRequestException);
+
+        $this->expectException($expectedExceptionClass);
+
+        $this->vatNumberValidationRestService->validateVat($vatNumber);
+    }
+
+    public function getValidateVatHandlingRequestExceptionsProvidedData(): array
+    {
+        return [
+            [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException',
+                'expectedExceptionClass',
+            ],
+        ];
+    }
+
     private function getResponseMock(array $params = []): MockObject
     {
         $stream = $this->createMock(StreamInterface::class);
@@ -682,5 +729,21 @@ abstract class VatNumberValidationServiceTest extends TestCase
     private function getValidatingVatNumberTestValue(): VatNumber
     {
         return new VatNumber(self::COUNTRY_CODE_TEST_VALUE, self::VAT_NUMBER_TEST_VALUE);
+    }
+
+    private function getClientExceptionMock(array $params = []): MockObject
+    {
+        $mock = $this->createMock(ClientException::class);
+        $mock->method('getResponse')->willReturn($params['response'] ?? $this->getResponseMock());
+
+        return $mock;
+    }
+
+    private function getServerExceptionMock(array $params = []): MockObject
+    {
+        $mock = $this->createMock(ServerException::class);
+        $mock->method('getResponse')->willReturn($params['response'] ?? $this->getResponseMock());
+
+        return $mock;
     }
 }
