@@ -14,6 +14,7 @@ use rocketfellows\ViesVatValidationInterface\exceptions\service\MSMaxConcurrentR
 use rocketfellows\ViesVatValidationInterface\exceptions\service\MSUnavailableServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\ServiceUnavailableException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\TimeoutServiceException;
+use rocketfellows\ViesVatValidationInterface\exceptions\service\UnknownServiceErrorException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\VatBlockedServiceException;
 use rocketfellows\ViesVatValidationInterface\FaultCodeExceptionFactory;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
@@ -131,6 +132,10 @@ class VatNumberValidationRestServiceTest extends TestCase
             'MS_MAX_CONCURRENT_REQ_TIME error' => [
                 'vatNumber' => new VatNumber('DE', '601'),
                 'expectedExceptionClass' => MSMaxConcurrentReqTimeServiceException::class,
+            ],
+            'country code not set' => [
+                'vatNumber' => new VatNumber('', '100'),
+                'expectedExceptionClass' => InvalidInputServiceException::class,
             ],
         ];
     }
