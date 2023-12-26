@@ -936,7 +936,7 @@ abstract class VatNumberValidationServiceTest extends TestCase
             ],
             // TODO: more test cases needed
             // TODO
-            'thrown client exception, error code unknown, error message set' => [
+            'thrown server exception, error code unknown, error message set' => [
                 'vatNumber' => new VatNumber(
                     'DE',
                     '12312312'
