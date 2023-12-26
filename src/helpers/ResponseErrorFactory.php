@@ -6,16 +6,18 @@ use stdClass;
 
 class ResponseErrorFactory
 {
+    private const EMPTY_ERROR_CODE = '';
+
     public static function isResponseWithError(stdClass $responseData): bool
     {
         return !is_null(self::getResponseErrorWrappers($responseData));
     }
 
-    public static function getResponseErrorCode(stdClass $responseData): ?string
+    public static function getResponseErrorCode(stdClass $responseData): string
     {
         $errorData = self::getResponseErrorData($responseData);
 
-        return !is_null($errorData) ? ($errorData->error ?? null) : null;
+        return !is_null($errorData) ? ($errorData->error ?? self::EMPTY_ERROR_CODE) : self::EMPTY_ERROR_CODE;
     }
 
     public static function getResponseErrorMessage(stdClass $responseData): ?string

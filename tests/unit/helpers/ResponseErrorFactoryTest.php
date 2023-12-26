@@ -97,7 +97,7 @@ class ResponseErrorFactoryTest extends TestCase
                         ]
                     ],
                 ],
-                'expectedResponseErrorCode' => null,
+                'expectedResponseErrorCode' => '',
             ],
             'error code not found' => [
                 'responseData' => (object) [
@@ -105,7 +105,7 @@ class ResponseErrorFactoryTest extends TestCase
                         (object) []
                     ],
                 ],
-                'expectedResponseErrorCode' => null,
+                'expectedResponseErrorCode' => '',
             ],
             'error wrappers with one empty array' => [
                 'responseData' => (object) [
@@ -113,29 +113,29 @@ class ResponseErrorFactoryTest extends TestCase
                         []
                     ],
                 ],
-                'expectedResponseErrorMessage' => null,
+                'expectedResponseErrorMessage' => '',
             ],
             'error wrappers empty' => [
                 'responseData' => (object) [
                     'errorWrappers' => [],
                 ],
-                'expectedResponseErrorCode' => null,
+                'expectedResponseErrorCode' => '',
             ],
             'error wrappers is null' => [
                 'responseData' => (object) [
                     'errorWrappers' => null,
                 ],
-                'expectedResponseErrorCode' => null,
+                'expectedResponseErrorCode' => '',
             ],
             'error wrappers not an array' => [
                 'responseData' => (object) [
                     'errorWrappers' => true,
                 ],
-                'expectedResponseErrorCode' => null,
+                'expectedResponseErrorCode' => '',
             ],
             'error wrappers not found' => [
                 'responseData' => (object) [],
-                'expectedResponseErrorCode' => null,
+                'expectedResponseErrorCode' => '',
             ],
         ];
     }
