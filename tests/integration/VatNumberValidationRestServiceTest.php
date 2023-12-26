@@ -14,7 +14,6 @@ use rocketfellows\ViesVatValidationInterface\exceptions\service\MSMaxConcurrentR
 use rocketfellows\ViesVatValidationInterface\exceptions\service\MSUnavailableServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\ServiceUnavailableException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\TimeoutServiceException;
-use rocketfellows\ViesVatValidationInterface\exceptions\service\UnknownServiceErrorException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\VatBlockedServiceException;
 use rocketfellows\ViesVatValidationInterface\FaultCodeExceptionFactory;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
@@ -140,6 +139,10 @@ class VatNumberValidationRestServiceTest extends TestCase
             'vat not set' => [
                 'vatNumber' => new VatNumber('DE', ''),
                 'expectedExceptionClass' => ServiceUnavailableException::class,
+            ],
+            'vat not set, vat not set' => [
+                'vatNumber' => new VatNumber('', ''),
+                'expectedExceptionClass' => InvalidInputServiceException::class,
             ],
         ];
     }
