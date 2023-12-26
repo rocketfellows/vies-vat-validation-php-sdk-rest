@@ -695,7 +695,7 @@ abstract class VatNumberValidationServiceTest extends TestCase
     public function getValidateVatHandlingRequestExceptionsProvidedData(): array
     {
         return [
-            'thrown client exception, error code set, error code unknown, error message set' => [
+            'thrown client exception, error code unknown, error message set' => [
                 'vatNumber' => new VatNumber(
                     'DE',
                     '12312312'
@@ -719,7 +719,7 @@ abstract class VatNumberValidationServiceTest extends TestCase
                     null
                 ),
             ],
-            'thrown client exception, error code set, error code unknown, error message empty' => [
+            'thrown client exception, error code unknown, error message empty' => [
                 'vatNumber' => new VatNumber(
                     'DE',
                     '12312312'
@@ -743,7 +743,7 @@ abstract class VatNumberValidationServiceTest extends TestCase
                     null
                 ),
             ],
-            'thrown client exception, error code set, error code unknown, error message not set' => [
+            'thrown client exception, error code unknown, error message not set' => [
                 'vatNumber' => new VatNumber(
                     'DE',
                     '12312312'
@@ -767,7 +767,7 @@ abstract class VatNumberValidationServiceTest extends TestCase
                     null
                 ),
             ],
-            'thrown client exception, error code set, error code empty, error message not set' => [
+            'thrown client exception, error code empty, error message not set' => [
                 'vatNumber' => new VatNumber(
                     'DE',
                     '12312312'
@@ -791,7 +791,7 @@ abstract class VatNumberValidationServiceTest extends TestCase
                     null
                 ),
             ],
-            'thrown client exception, error code set, error code not set, error message not set' => [
+            'thrown client exception, error code not set, error message not set' => [
                 'vatNumber' => new VatNumber(
                     'DE',
                     '12312312'
