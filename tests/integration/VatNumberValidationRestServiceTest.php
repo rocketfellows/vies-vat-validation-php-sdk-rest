@@ -137,6 +137,10 @@ class VatNumberValidationRestServiceTest extends TestCase
                 'vatNumber' => new VatNumber('', '100'),
                 'expectedExceptionClass' => InvalidInputServiceException::class,
             ],
+            'vat not set' => [
+                'vatNumber' => new VatNumber('DE', ''),
+                'expectedExceptionClass' => ServiceUnavailableException::class,
+            ],
         ];
     }
 }
