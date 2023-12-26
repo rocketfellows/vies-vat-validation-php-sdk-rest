@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1703504456">
-  <project timestamp="1703504456">
+<coverage generated="1703570227">
+  <project timestamp="1703570227">
     <file name="/app/src/AbstractVatNumberValidationRestService.php">
       <class name="rocketfellows\ViesVatValidationRest\AbstractVatNumberValidationRestService" namespace="global">
         <metrics complexity="5" methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="28" coveredstatements="23" elements="30" coveredelements="24"/>
       </class>
-      <line num="23" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="30"/>
-      <line num="27" type="stmt" count="30"/>
-      <line num="28" type="stmt" count="30"/>
-      <line num="33" type="method" name="validateVat" visibility="public" complexity="4" crap="4.11" count="29"/>
-      <line num="36" type="stmt" count="29"/>
-      <line num="37" type="stmt" count="29"/>
-      <line num="38" type="stmt" count="29"/>
-      <line num="39" type="stmt" count="29"/>
-      <line num="40" type="stmt" count="29"/>
-      <line num="41" type="stmt" count="29"/>
-      <line num="42" type="stmt" count="29"/>
-      <line num="43" type="stmt" count="29"/>
-      <line num="48" type="stmt" count="28"/>
-      <line num="49" type="stmt" count="24"/>
-      <line num="50" type="stmt" count="24"/>
-      <line num="51" type="stmt" count="24"/>
-      <line num="52" type="stmt" count="24"/>
+      <line num="23" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="32"/>
+      <line num="27" type="stmt" count="32"/>
+      <line num="28" type="stmt" count="32"/>
+      <line num="33" type="method" name="validateVat" visibility="public" complexity="4" crap="4.11" count="31"/>
+      <line num="36" type="stmt" count="31"/>
+      <line num="37" type="stmt" count="31"/>
+      <line num="38" type="stmt" count="31"/>
+      <line num="39" type="stmt" count="31"/>
+      <line num="40" type="stmt" count="31"/>
+      <line num="41" type="stmt" count="31"/>
+      <line num="42" type="stmt" count="31"/>
+      <line num="43" type="stmt" count="31"/>
+      <line num="48" type="stmt" count="30"/>
+      <line num="49" type="stmt" count="26"/>
+      <line num="50" type="stmt" count="26"/>
+      <line num="51" type="stmt" count="26"/>
+      <line num="52" type="stmt" count="26"/>
       <line num="56" type="stmt" count="4"/>
-      <line num="57" type="stmt" count="25"/>
+      <line num="57" type="stmt" count="27"/>
       <line num="58" type="stmt" count="0"/>
       <line num="60" type="stmt" count="0"/>
       <line num="61" type="stmt" count="0"/>
       <line num="62" type="stmt" count="0"/>
       <line num="63" type="stmt" count="0"/>
-      <line num="64" type="stmt" count="25"/>
+      <line num="64" type="stmt" count="27"/>
       <line num="65" type="stmt" count="1"/>
       <line num="66" type="stmt" count="1"/>
       <line num="67" type="stmt" count="1"/>
@@ -41,41 +41,41 @@
       <class name="rocketfellows\ViesVatValidationRest\helpers\RequestFactory" namespace="global">
         <metrics complexity="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="4" elements="5" coveredelements="5"/>
       </class>
-      <line num="12" type="method" name="getCheckVatNumberRequestData" visibility="public" complexity="1" crap="1" count="31"/>
-      <line num="14" type="stmt" count="31"/>
-      <line num="15" type="stmt" count="31"/>
-      <line num="16" type="stmt" count="31"/>
-      <line num="17" type="stmt" count="31"/>
+      <line num="12" type="method" name="getCheckVatNumberRequestData" visibility="public" complexity="1" crap="1" count="33"/>
+      <line num="14" type="stmt" count="33"/>
+      <line num="15" type="stmt" count="33"/>
+      <line num="16" type="stmt" count="33"/>
+      <line num="17" type="stmt" count="33"/>
       <metrics loc="20" ncloc="20" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="4" elements="5" coveredelements="5"/>
     </file>
     <file name="/app/src/helpers/ResponseErrorFactory.php">
       <class name="rocketfellows\ViesVatValidationRest\helpers\ResponseErrorFactory" namespace="global">
         <metrics complexity="12" methods="5" coveredmethods="5" conditionals="0" coveredconditionals="0" statements="18" coveredstatements="18" elements="23" coveredelements="23"/>
       </class>
-      <line num="9" type="method" name="isResponseWithError" visibility="public" complexity="1" crap="1" count="33"/>
-      <line num="11" type="stmt" count="33"/>
-      <line num="14" type="method" name="getResponseErrorCode" visibility="public" complexity="2" crap="2" count="33"/>
-      <line num="16" type="stmt" count="33"/>
-      <line num="18" type="stmt" count="33"/>
-      <line num="21" type="method" name="getResponseErrorMessage" visibility="public" complexity="2" crap="2" count="33"/>
-      <line num="23" type="stmt" count="33"/>
-      <line num="25" type="stmt" count="33"/>
-      <line num="28" type="method" name="getResponseErrorData" visibility="private" complexity="4" crap="4" count="42"/>
-      <line num="30" type="stmt" count="42"/>
-      <line num="32" type="stmt" count="42"/>
-      <line num="33" type="stmt" count="6"/>
-      <line num="36" type="stmt" count="36"/>
-      <line num="37" type="stmt" count="2"/>
-      <line num="40" type="stmt" count="34"/>
-      <line num="42" type="stmt" count="34"/>
-      <line num="43" type="stmt" count="2"/>
-      <line num="46" type="stmt" count="32"/>
-      <line num="49" type="method" name="getResponseErrorWrappers" visibility="private" complexity="3" crap="3" count="51"/>
-      <line num="51" type="stmt" count="51"/>
-      <line num="53" type="stmt" count="51"/>
-      <line num="54" type="stmt" count="10"/>
-      <line num="57" type="stmt" count="41"/>
-      <metrics loc="60" ncloc="60" classes="1" methods="5" coveredmethods="5" conditionals="0" coveredconditionals="0" statements="18" coveredstatements="18" elements="23" coveredelements="23"/>
+      <line num="12" type="method" name="isResponseWithError" visibility="public" complexity="1" crap="1" count="35"/>
+      <line num="15" type="stmt" count="35"/>
+      <line num="18" type="method" name="getResponseErrorCode" visibility="public" complexity="2" crap="2" count="35"/>
+      <line num="20" type="stmt" count="35"/>
+      <line num="22" type="stmt" count="35"/>
+      <line num="25" type="method" name="getResponseErrorMessage" visibility="public" complexity="2" crap="2" count="35"/>
+      <line num="27" type="stmt" count="35"/>
+      <line num="29" type="stmt" count="35"/>
+      <line num="32" type="method" name="getResponseErrorData" visibility="private" complexity="4" crap="4" count="44"/>
+      <line num="34" type="stmt" count="44"/>
+      <line num="36" type="stmt" count="44"/>
+      <line num="37" type="stmt" count="6"/>
+      <line num="40" type="stmt" count="38"/>
+      <line num="41" type="stmt" count="3"/>
+      <line num="44" type="stmt" count="35"/>
+      <line num="46" type="stmt" count="35"/>
+      <line num="47" type="stmt" count="2"/>
+      <line num="50" type="stmt" count="33"/>
+      <line num="53" type="method" name="getResponseErrorWrappers" visibility="private" complexity="3" crap="3" count="53"/>
+      <line num="55" type="stmt" count="53"/>
+      <line num="57" type="stmt" count="53"/>
+      <line num="58" type="stmt" count="10"/>
+      <line num="61" type="stmt" count="43"/>
+      <metrics loc="64" ncloc="63" classes="1" methods="5" coveredmethods="5" conditionals="0" coveredconditionals="0" statements="18" coveredstatements="18" elements="23" coveredelements="23"/>
     </file>
     <file name="/app/src/helpers/ResponseFactory.php">
       <class name="rocketfellows\ViesVatValidationRest\helpers\ResponseFactory" namespace="global">
@@ -83,9 +83,9 @@
       </class>
       <line num="12" type="method" name="isResponseDataEmpty" visibility="public" complexity="1" crap="1" count="2"/>
       <line num="14" type="stmt" count="2"/>
-      <line num="17" type="method" name="getResponseData" visibility="public" complexity="2" crap="2" count="36"/>
-      <line num="19" type="stmt" count="36"/>
-      <line num="21" type="stmt" count="36"/>
+      <line num="17" type="method" name="getResponseData" visibility="public" complexity="2" crap="2" count="38"/>
+      <line num="19" type="stmt" count="38"/>
+      <line num="21" type="stmt" count="38"/>
       <line num="24" type="method" name="getVatNumberValidationResult" visibility="public" complexity="1" crap="1" count="8"/>
       <line num="26" type="stmt" count="8"/>
       <line num="27" type="stmt" count="8"/>
@@ -103,10 +103,10 @@
       <class name="rocketfellows\ViesVatValidationRest\services\VatNumberValidationRestService" namespace="global">
         <metrics complexity="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
       </class>
-      <line num="9" type="method" name="getUrl" visibility="protected" complexity="1" crap="1" count="29"/>
-      <line num="11" type="stmt" count="29"/>
+      <line num="9" type="method" name="getUrl" visibility="protected" complexity="1" crap="1" count="31"/>
+      <line num="11" type="stmt" count="31"/>
       <metrics loc="14" ncloc="14" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
     </file>
-    <metrics files="5" loc="205" ncloc="202" classes="5" methods="12" coveredmethods="11" conditionals="0" coveredconditionals="0" statements="64" coveredstatements="59" elements="76" coveredelements="70"/>
+    <metrics files="5" loc="209" ncloc="205" classes="5" methods="12" coveredmethods="11" conditionals="0" coveredconditionals="0" statements="64" coveredstatements="59" elements="76" coveredelements="70"/>
   </project>
 </coverage>
