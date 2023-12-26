@@ -11,6 +11,7 @@ class ResponseErrorFactory
 
     public static function isResponseWithError(stdClass $responseData): bool
     {
+        // TODO: check $responseData object has attribute errorWrappers - if has then response with error
         return !is_null(self::getResponseErrorWrappers($responseData));
     }
 
