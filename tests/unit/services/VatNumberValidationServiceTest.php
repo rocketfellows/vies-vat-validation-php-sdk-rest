@@ -794,6 +794,20 @@ abstract class VatNumberValidationServiceTest extends TestCase
         ];
     }
 
+    public function testValidateVatHandlingCommonRequestException(): void
+    {
+        $vatNumber = $this->getValidatingVatNumberTestValue();
+
+        $this->client
+            ->expects($this->once())
+            ->method('post')
+            ->willThrowException($this->getCommonRequestExceptionMock());
+
+        $this->expectException(ServiceRequestException::class);
+
+        $this->vatNumberValidationRestService->validateVat($vatNumber);
+    }
+
     private function getResponseMock(array $params = []): MockObject
     {
         $stream = $this->createMock(StreamInterface::class);
@@ -822,6 +836,13 @@ abstract class VatNumberValidationServiceTest extends TestCase
     {
         $mock = $this->createMock(ServerException::class);
         $mock->method('getResponse')->willReturn($params['response'] ?? $this->getResponseMock());
+
+        return $mock;
+    }
+
+    private function getCommonRequestExceptionMock(): MockObject
+    {
+        $mock = $this->createMock(GuzzleException::class);
 
         return $mock;
     }
