@@ -4,7 +4,6 @@ namespace rocketfellows\ViesVatValidationRest\tests\unit\services;
 
 use Exception;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\BadResponseException;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\ServerException;
