@@ -1049,6 +1049,75 @@ abstract class VatNumberValidationServiceTest extends TestCase
                     null
                 ),
             ],
+            'thrown client exception, error code set, error code MS_UNAVAILABLE, error message set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getClientExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{"error": "MS_UNAVAILABLE", "message": "bar"}]}']),
+                ]),
+                'expectedException' => new MSUnavailableServiceException(
+                    'bar',
+                    0,
+                    null
+                ),
+            ],
+            'thrown client exception, error code set, error code MS_UNAVAILABLE, error message empty' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getClientExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{"error": "MS_UNAVAILABLE", "message": ""}]}']),
+                ]),
+                'expectedException' => new MSUnavailableServiceException(
+                    '',
+                    0,
+                    null
+                ),
+            ],
+            'thrown client exception, error code set, error code MS_UNAVAILABLE, error message not set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getClientExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{"error": "MS_UNAVAILABLE"}]}']),
+                ]),
+                'expectedException' => new MSUnavailableServiceException(
+                    '',
+                    0,
+                    null
+                ),
+            ],
             // TODO: more test cases needed
             // TODO
             'thrown server exception, error code unknown, error message set' => [
