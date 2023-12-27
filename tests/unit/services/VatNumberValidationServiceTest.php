@@ -1601,6 +1601,75 @@ abstract class VatNumberValidationServiceTest extends TestCase
                     null
                 ),
             ],
+            'thrown client exception, error code set, error code MS_MAX_CONCURRENT_REQ_TIME, error message set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getClientExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{"error": "MS_MAX_CONCURRENT_REQ_TIME", "message": "bar"}]}']),
+                ]),
+                'expectedException' => new MSMaxConcurrentReqTimeServiceException(
+                    'bar',
+                    0,
+                    null
+                ),
+            ],
+            'thrown client exception, error code set, error code MS_MAX_CONCURRENT_REQ_TIME, error message empty' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getClientExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{"error": "MS_MAX_CONCURRENT_REQ_TIME", "message": ""}]}']),
+                ]),
+                'expectedException' => new MSMaxConcurrentReqTimeServiceException(
+                    '',
+                    0,
+                    null
+                ),
+            ],
+            'thrown client exception, error code set, error code MS_MAX_CONCURRENT_REQ_TIME, error message not set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getClientExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{"error": "MS_MAX_CONCURRENT_REQ_TIME"}]}']),
+                ]),
+                'expectedException' => new MSMaxConcurrentReqTimeServiceException(
+                    '',
+                    0,
+                    null
+                ),
+            ],
             // TODO: more test cases needed
             // TODO
             'thrown server exception, error code unknown, error message set' => [
