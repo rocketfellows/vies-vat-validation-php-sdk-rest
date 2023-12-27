@@ -1888,6 +1888,765 @@ abstract class VatNumberValidationServiceTest extends TestCase
                     null
                 ),
             ],
+            'thrown server exception, error code set, error code INVALID_INPUT, error message set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getServerExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{"error": "INVALID_INPUT", "message": "bar"}]}']),
+                ]),
+                'expectedException' => new InvalidInputServiceException(
+                    'bar',
+                    0,
+                    null
+                ),
+            ],
+            'thrown server exception, error code set, error code INVALID_INPUT, error message empty' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getServerExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{"error": "INVALID_INPUT", "message": ""}]}']),
+                ]),
+                'expectedException' => new InvalidInputServiceException(
+                    '',
+                    0,
+                    null
+                ),
+            ],
+            'thrown server exception, error code set, error code INVALID_INPUT, error message not set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getServerExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{"error": "INVALID_INPUT"}]}']),
+                ]),
+                'expectedException' => new InvalidInputServiceException(
+                    '',
+                    0,
+                    null
+                ),
+            ],
+            'thrown server exception, error code set, error code SERVICE_UNAVAILABLE, error message set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getServerExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{"error": "SERVICE_UNAVAILABLE", "message": "bar"}]}']),
+                ]),
+                'expectedException' => new ServiceUnavailableException(
+                    'bar',
+                    0,
+                    null
+                ),
+            ],
+            'thrown server exception, error code set, error code SERVICE_UNAVAILABLE, error message empty' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getServerExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{"error": "SERVICE_UNAVAILABLE", "message": ""}]}']),
+                ]),
+                'expectedException' => new ServiceUnavailableException(
+                    '',
+                    0,
+                    null
+                ),
+            ],
+            'thrown server exception, error code set, error code SERVICE_UNAVAILABLE, error message not set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getServerExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{"error": "SERVICE_UNAVAILABLE"}]}']),
+                ]),
+                'expectedException' => new ServiceUnavailableException(
+                    '',
+                    0,
+                    null
+                ),
+            ],
+            'thrown server exception, error code set, error code MS_UNAVAILABLE, error message set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getServerExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{"error": "MS_UNAVAILABLE", "message": "bar"}]}']),
+                ]),
+                'expectedException' => new MSUnavailableServiceException(
+                    'bar',
+                    0,
+                    null
+                ),
+            ],
+            'thrown server exception, error code set, error code MS_UNAVAILABLE, error message empty' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getServerExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{"error": "MS_UNAVAILABLE", "message": ""}]}']),
+                ]),
+                'expectedException' => new MSUnavailableServiceException(
+                    '',
+                    0,
+                    null
+                ),
+            ],
+            'thrown server exception, error code set, error code MS_UNAVAILABLE, error message not set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getServerExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{"error": "MS_UNAVAILABLE"}]}']),
+                ]),
+                'expectedException' => new MSUnavailableServiceException(
+                    '',
+                    0,
+                    null
+                ),
+            ],
+            'thrown server exception, error code set, error code TIMEOUT, error message set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getServerExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{"error": "TIMEOUT", "message": "bar"}]}']),
+                ]),
+                'expectedException' => new TimeoutServiceException(
+                    'bar',
+                    0,
+                    null
+                ),
+            ],
+            'thrown server exception, error code set, error code TIMEOUT, error message empty' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getServerExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{"error": "TIMEOUT", "message": ""}]}']),
+                ]),
+                'expectedException' => new TimeoutServiceException(
+                    '',
+                    0,
+                    null
+                ),
+            ],
+            'thrown server exception, error code set, error code TIMEOUT, error message not set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getServerExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{"error": "TIMEOUT"}]}']),
+                ]),
+                'expectedException' => new TimeoutServiceException(
+                    '',
+                    0,
+                    null
+                ),
+            ],
+            'thrown server exception, error code set, error code INVALID_REQUESTER_INFO, error message set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getServerExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{"error": "INVALID_REQUESTER_INFO", "message": "bar"}]}']),
+                ]),
+                'expectedException' => new InvalidRequesterInfoServiceException(
+                    'bar',
+                    0,
+                    null
+                ),
+            ],
+            'thrown server exception, error code set, error code INVALID_REQUESTER_INFO, error message empty' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getServerExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{"error": "INVALID_REQUESTER_INFO", "message": ""}]}']),
+                ]),
+                'expectedException' => new InvalidRequesterInfoServiceException(
+                    '',
+                    0,
+                    null
+                ),
+            ],
+            'thrown server exception, error code set, error code INVALID_REQUESTER_INFO, error message not set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getServerExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{"error": "INVALID_REQUESTER_INFO"}]}']),
+                ]),
+                'expectedException' => new InvalidRequesterInfoServiceException(
+                    '',
+                    0,
+                    null
+                ),
+            ],
+            'thrown server exception, error code set, error code VAT_BLOCKED, error message set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getServerExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{"error": "VAT_BLOCKED", "message": "bar"}]}']),
+                ]),
+                'expectedException' => new VatBlockedServiceException(
+                    'bar',
+                    0,
+                    null
+                ),
+            ],
+            'thrown server exception, error code set, error code VAT_BLOCKED, error message empty' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getServerExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{"error": "VAT_BLOCKED", "message": ""}]}']),
+                ]),
+                'expectedException' => new VatBlockedServiceException(
+                    '',
+                    0,
+                    null
+                ),
+            ],
+            'thrown server exception, error code set, error code VAT_BLOCKED, error message not set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getServerExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{"error": "VAT_BLOCKED"}]}']),
+                ]),
+                'expectedException' => new VatBlockedServiceException(
+                    '',
+                    0,
+                    null
+                ),
+            ],
+            'thrown server exception, error code set, error code IP_BLOCKED, error message set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getServerExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{"error": "IP_BLOCKED", "message": "bar"}]}']),
+                ]),
+                'expectedException' => new IPBlockedServiceException(
+                    'bar',
+                    0,
+                    null
+                ),
+            ],
+            'thrown server exception, error code set, error code IP_BLOCKED, error message empty' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getServerExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{"error": "IP_BLOCKED", "message": ""}]}']),
+                ]),
+                'expectedException' => new IPBlockedServiceException(
+                    '',
+                    0,
+                    null
+                ),
+            ],
+            'thrown server exception, error code set, error code IP_BLOCKED, error message not set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getServerExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{"error": "IP_BLOCKED"}]}']),
+                ]),
+                'expectedException' => new IPBlockedServiceException(
+                    '',
+                    0,
+                    null
+                ),
+            ],
+            'thrown server exception, error code set, error code GLOBAL_MAX_CONCURRENT_REQ, error message set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getServerExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{"error": "GLOBAL_MAX_CONCURRENT_REQ", "message": "bar"}]}']),
+                ]),
+                'expectedException' => new GlobalMaxConcurrentReqServiceException(
+                    'bar',
+                    0,
+                    null
+                ),
+            ],
+            'thrown server exception, error code set, error code GLOBAL_MAX_CONCURRENT_REQ, error message empty' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getServerExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{"error": "GLOBAL_MAX_CONCURRENT_REQ", "message": ""}]}']),
+                ]),
+                'expectedException' => new GlobalMaxConcurrentReqServiceException(
+                    '',
+                    0,
+                    null
+                ),
+            ],
+            'thrown server exception, error code set, error code GLOBAL_MAX_CONCURRENT_REQ, error message not set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getServerExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{"error": "GLOBAL_MAX_CONCURRENT_REQ"}]}']),
+                ]),
+                'expectedException' => new GlobalMaxConcurrentReqServiceException(
+                    '',
+                    0,
+                    null
+                ),
+            ],
+            'thrown server exception, error code set, error code GLOBAL_MAX_CONCURRENT_REQ_TIME, error message set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getServerExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{"error": "GLOBAL_MAX_CONCURRENT_REQ_TIME", "message": "bar"}]}']),
+                ]),
+                'expectedException' => new GlobalMaxConcurrentReqTimeServiceException(
+                    'bar',
+                    0,
+                    null
+                ),
+            ],
+            'thrown server exception, error code set, error code GLOBAL_MAX_CONCURRENT_REQ_TIME, error message empty' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getServerExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{"error": "GLOBAL_MAX_CONCURRENT_REQ_TIME", "message": ""}]}']),
+                ]),
+                'expectedException' => new GlobalMaxConcurrentReqTimeServiceException(
+                    '',
+                    0,
+                    null
+                ),
+            ],
+            'thrown server exception, error code set, error code GLOBAL_MAX_CONCURRENT_REQ_TIME, error message not set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getServerExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{"error": "GLOBAL_MAX_CONCURRENT_REQ_TIME"}]}']),
+                ]),
+                'expectedException' => new GlobalMaxConcurrentReqTimeServiceException(
+                    '',
+                    0,
+                    null
+                ),
+            ],
+            'thrown server exception, error code set, error code MS_MAX_CONCURRENT_REQ, error message set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getServerExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{"error": "MS_MAX_CONCURRENT_REQ", "message": "bar"}]}']),
+                ]),
+                'expectedException' => new MSMaxConcurrentReqServiceException(
+                    'bar',
+                    0,
+                    null
+                ),
+            ],
+            'thrown server exception, error code set, error code MS_MAX_CONCURRENT_REQ, error message empty' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getServerExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{"error": "MS_MAX_CONCURRENT_REQ", "message": ""}]}']),
+                ]),
+                'expectedException' => new MSMaxConcurrentReqServiceException(
+                    '',
+                    0,
+                    null
+                ),
+            ],
+            'thrown server exception, error code set, error code MS_MAX_CONCURRENT_REQ, error message not set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getServerExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{"error": "MS_MAX_CONCURRENT_REQ"}]}']),
+                ]),
+                'expectedException' => new MSMaxConcurrentReqServiceException(
+                    '',
+                    0,
+                    null
+                ),
+            ],
+            'thrown server exception, error code set, error code MS_MAX_CONCURRENT_REQ_TIME, error message set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getServerExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{"error": "MS_MAX_CONCURRENT_REQ_TIME", "message": "bar"}]}']),
+                ]),
+                'expectedException' => new MSMaxConcurrentReqTimeServiceException(
+                    'bar',
+                    0,
+                    null
+                ),
+            ],
+            'thrown server exception, error code set, error code MS_MAX_CONCURRENT_REQ_TIME, error message empty' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getServerExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{"error": "MS_MAX_CONCURRENT_REQ_TIME", "message": ""}]}']),
+                ]),
+                'expectedException' => new MSMaxConcurrentReqTimeServiceException(
+                    '',
+                    0,
+                    null
+                ),
+            ],
+            'thrown server exception, error code set, error code MS_MAX_CONCURRENT_REQ_TIME, error message not set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getServerExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{"error": "MS_MAX_CONCURRENT_REQ_TIME"}]}']),
+                ]),
+                'expectedException' => new MSMaxConcurrentReqTimeServiceException(
+                    '',
+                    0,
+                    null
+                ),
+            ],
         ];
     }
 
