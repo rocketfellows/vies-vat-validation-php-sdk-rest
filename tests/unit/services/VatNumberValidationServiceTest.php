@@ -1118,6 +1118,75 @@ abstract class VatNumberValidationServiceTest extends TestCase
                     null
                 ),
             ],
+            'thrown client exception, error code set, error code TIMEOUT, error message set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getClientExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{"error": "TIMEOUT", "message": "bar"}]}']),
+                ]),
+                'expectedException' => new TimeoutServiceException(
+                    'bar',
+                    0,
+                    null
+                ),
+            ],
+            'thrown client exception, error code set, error code TIMEOUT, error message empty' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getClientExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{"error": "TIMEOUT", "message": ""}]}']),
+                ]),
+                'expectedException' => new TimeoutServiceException(
+                    '',
+                    0,
+                    null
+                ),
+            ],
+            'thrown client exception, error code set, error code TIMEOUT, error message not set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getClientExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{"error": "TIMEOUT"}]}']),
+                ]),
+                'expectedException' => new TimeoutServiceException(
+                    '',
+                    0,
+                    null
+                ),
+            ],
             // TODO: more test cases needed
             // TODO
             'thrown server exception, error code unknown, error message set' => [
