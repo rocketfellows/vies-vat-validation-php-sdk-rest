@@ -1187,6 +1187,75 @@ abstract class VatNumberValidationServiceTest extends TestCase
                     null
                 ),
             ],
+            'thrown client exception, error code set, error code INVALID_REQUESTER_INFO, error message set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getClientExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{"error": "INVALID_REQUESTER_INFO", "message": "bar"}]}']),
+                ]),
+                'expectedException' => new InvalidRequesterInfoServiceException(
+                    'bar',
+                    0,
+                    null
+                ),
+            ],
+            'thrown client exception, error code set, error code INVALID_REQUESTER_INFO, error message empty' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getClientExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{"error": "INVALID_REQUESTER_INFO", "message": ""}]}']),
+                ]),
+                'expectedException' => new InvalidRequesterInfoServiceException(
+                    '',
+                    0,
+                    null
+                ),
+            ],
+            'thrown client exception, error code set, error code INVALID_REQUESTER_INFO, error message not set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'thrownRequestException' => $this->getClientExceptionMock([
+                    'response' => $this->getResponseMock(['body' => '{"errorWrappers": [{"error": "INVALID_REQUESTER_INFO"}]}']),
+                ]),
+                'expectedException' => new InvalidRequesterInfoServiceException(
+                    '',
+                    0,
+                    null
+                ),
+            ],
             // TODO: more test cases needed
             // TODO
             'thrown server exception, error code unknown, error message set' => [
