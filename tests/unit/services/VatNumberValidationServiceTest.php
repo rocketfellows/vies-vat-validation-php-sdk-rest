@@ -204,6 +204,57 @@ abstract class VatNumberValidationServiceTest extends TestCase
     }
 
     /**
+     * @dataProvider getCheckVatProvidedData
+     */
+    public function testSuccessCheckVatWithDifferentSetOfAttributesInResponse(
+        VatNumber $vatNumber,
+        array $checkVatCallArgs,
+        string $checkVatResponse,
+        VatNumberValidationResult $expectedVatNumberValidationResult
+    ): void {
+        $this->client
+            ->expects($this->once())
+            ->method('post')
+            ->with(...$checkVatCallArgs)
+            ->willReturn($this->getResponseMock(['body' => $checkVatResponse,]));
+
+        $this->assertEquals(
+            $expectedVatNumberValidationResult,
+            $this->vatNumberValidationRestService->validateVat($vatNumber)
+        );
+    }
+
+    public function getCheckVatWithDifferentSetOfAttributesInResponseProvidedData(): array
+    {
+        // {"countryCode": "DE", "vatNumber": "12312312", "requestDate": "2023-11-11 23:23:23", "valid": true, "name": "foo",  "address": "bar"}
+        return [
+            'country code response attribute not set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'checkVatResponse' => '{"vatNumber": "12312312", "requestDate": "2023-11-11 23:23:23", "valid": true, "name": "foo",  "address": "bar"}',
+                'expectedVatNumberValidationResult' => new VatNumberValidationResult(
+                    new VatNumber('DE', '12312312'),
+                    '2023-11-11 23:23:23',
+                    true,
+                    'foo',
+                    'bar'
+                ),
+            ],
+        ];
+    }
+
+    /**
      * @dataProvider getHandlingCheckVatFaultProvidedData
      */
     public function testHandleCheckVatFault(
