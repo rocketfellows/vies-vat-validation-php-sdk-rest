@@ -122,7 +122,7 @@ abstract class VatNumberValidationServiceTest extends TestCase
                         ],
                     ]
                 ],
-                'checkVatResponse' => '{"countryCode": "DE", "vatNumber": "12312312", "requestDate": "2023-11-11 23:23:23", "valid": true, "name": "foo",  "address": "bar"}',
+                'checkVatResponse' => '{"countryCode": "DE", "vatNumber": "12312312", "requestDate": "2023-11-11 23:23:23", "valid": true, "name": "foo", "address": "bar"}',
                 'expectedVatNumberValidationResult' => new VatNumberValidationResult(
                     new VatNumber('DE', '12312312'),
                     '2023-11-11 23:23:23',
@@ -145,7 +145,7 @@ abstract class VatNumberValidationServiceTest extends TestCase
                         ],
                     ]
                 ],
-                'checkVatResponse' => '{"countryCode": "DE", "vatNumber": "12312312", "requestDate": "2023-11-11 23:23:23", "valid": false, "name": "foo",  "address": "bar"}',
+                'checkVatResponse' => '{"countryCode": "DE", "vatNumber": "12312312", "requestDate": "2023-11-11 23:23:23", "valid": false, "name": "foo", "address": "bar"}',
                 'expectedVatNumberValidationResult' => new VatNumberValidationResult(
                     new VatNumber('DE', '12312312'),
                     '2023-11-11 23:23:23',
@@ -191,7 +191,7 @@ abstract class VatNumberValidationServiceTest extends TestCase
                         ],
                     ]
                 ],
-                'checkVatResponse' => '{"countryCode": "", "vatNumber": "", "requestDate": "", "valid": false, "name": "",  "address": ""}',
+                'checkVatResponse' => '{"countryCode": "", "vatNumber": "", "requestDate": "", "valid": false, "name": "", "address": ""}',
                 'expectedVatNumberValidationResult' => new VatNumberValidationResult(
                     new VatNumber('', ''),
                     '',
@@ -226,7 +226,7 @@ abstract class VatNumberValidationServiceTest extends TestCase
 
     public function getCheckVatWithDifferentSetOfAttributesInResponseProvidedData(): array
     {
-        // {"countryCode": "DE", "vatNumber": "12312312", "requestDate": "2023-11-11 23:23:23", "valid": true, "name": "foo",  "address": "bar"}
+        // {"countryCode": "DE", "vatNumber": "12312312", "requestDate": "2023-11-11 23:23:23", "valid": true, "name": "foo", "address": "bar"}
         return [
             'country code response attribute not set' => [
                 'vatNumber' => new VatNumber(
@@ -242,7 +242,7 @@ abstract class VatNumberValidationServiceTest extends TestCase
                         ],
                     ]
                 ],
-                'checkVatResponse' => '{"vatNumber": "12312312", "requestDate": "2023-11-11 23:23:23", "valid": true, "name": "foo",  "address": "bar"}',
+                'checkVatResponse' => '{"vatNumber": "12312312", "requestDate": "2023-11-11 23:23:23", "valid": true, "name": "foo", "address": "bar"}',
                 'expectedVatNumberValidationResult' => new VatNumberValidationResult(
                     new VatNumber('', '12312312'),
                     '2023-11-11 23:23:23',
@@ -265,7 +265,7 @@ abstract class VatNumberValidationServiceTest extends TestCase
                         ],
                     ]
                 ],
-                'checkVatResponse' => '{"countryCode": "DE", "requestDate": "2023-11-11 23:23:23", "valid": true, "name": "foo",  "address": "bar"}',
+                'checkVatResponse' => '{"countryCode": "DE", "requestDate": "2023-11-11 23:23:23", "valid": true, "name": "foo", "address": "bar"}',
                 'expectedVatNumberValidationResult' => new VatNumberValidationResult(
                     new VatNumber('DE', ''),
                     '2023-11-11 23:23:23',
@@ -288,7 +288,7 @@ abstract class VatNumberValidationServiceTest extends TestCase
                         ],
                     ]
                 ],
-                'checkVatResponse' => '{"countryCode": "DE", "vatNumber": "12312312", "valid": true, "name": "foo",  "address": "bar"}',
+                'checkVatResponse' => '{"countryCode": "DE", "vatNumber": "12312312", "valid": true, "name": "foo", "address": "bar"}',
                 'expectedVatNumberValidationResult' => new VatNumberValidationResult(
                     new VatNumber('DE', '12312312'),
                     '',
@@ -311,7 +311,7 @@ abstract class VatNumberValidationServiceTest extends TestCase
                         ],
                     ]
                 ],
-                'checkVatResponse' => '{"countryCode": "DE", "vatNumber": "12312312", "requestDate": "2023-11-11 23:23:23", "name": "foo",  "address": "bar"}',
+                'checkVatResponse' => '{"countryCode": "DE", "vatNumber": "12312312", "requestDate": "2023-11-11 23:23:23", "name": "foo", "address": "bar"}',
                 'expectedVatNumberValidationResult' => new VatNumberValidationResult(
                     new VatNumber('DE', '12312312'),
                     '2023-11-11 23:23:23',
@@ -334,13 +334,36 @@ abstract class VatNumberValidationServiceTest extends TestCase
                         ],
                     ]
                 ],
-                'checkVatResponse' => '{"countryCode": "DE", "vatNumber": "12312312", "requestDate": "2023-11-11 23:23:23", "valid": true,  "address": "bar"}',
+                'checkVatResponse' => '{"countryCode": "DE", "vatNumber": "12312312", "requestDate": "2023-11-11 23:23:23", "valid": true, "address": "bar"}',
                 'expectedVatNumberValidationResult' => new VatNumberValidationResult(
                     new VatNumber('DE', '12312312'),
                     '2023-11-11 23:23:23',
                     true,
                     '',
                     'bar'
+                ),
+            ],
+            'address response attribute not set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'checkVatResponse' => '{"countryCode": "DE", "vatNumber": "12312312", "requestDate": "2023-11-11 23:23:23", "valid": true, "name": "foo"}',
+                'expectedVatNumberValidationResult' => new VatNumberValidationResult(
+                    new VatNumber('DE', '12312312'),
+                    '2023-11-11 23:23:23',
+                    true,
+                    'foo',
+                    ''
                 ),
             ],
         ];
