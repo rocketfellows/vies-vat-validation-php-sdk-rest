@@ -9,6 +9,12 @@ The implementation is designed to send a request and process a response from the
 
 For more information about VIES VAT number validation services via the REST web services see https://ec.europa.eu/taxation_customs/vies/#/technical-information.
 
+## Installation.
+
+```shell
+composer require rocketfellows/vies-vat-validation-php-sdk-rest
+```
+
 ## Contributing.
 
 Welcome to pull requests. If there is a major changes, first please open an issue for discussion.
