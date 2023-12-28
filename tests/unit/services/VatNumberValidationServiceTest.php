@@ -226,7 +226,6 @@ abstract class VatNumberValidationServiceTest extends TestCase
 
     public function getCheckVatWithDifferentSetOfAttributesInResponseProvidedData(): array
     {
-        // {"countryCode": "DE", "vatNumber": "12312312", "requestDate": "2023-11-11 23:23:23", "valid": true, "name": "foo", "address": "bar"}
         return [
             'country code response attribute not set' => [
                 'vatNumber' => new VatNumber(
