@@ -15,6 +15,12 @@ For more information about VIES VAT number validation services via the REST web 
 composer require rocketfellows/vies-vat-validation-php-sdk-rest
 ```
 
+## Dependencies.
+
+Current implementation dependencies:
+- guzzle client - https://github.com/guzzle/guzzle;
+- https://github.com/rocketfellows/vies-vat-validation-php-sdk-interface v1.1.0.
+
 ## Contributing.
 
 Welcome to pull requests. If there is a major changes, first please open an issue for discussion.
