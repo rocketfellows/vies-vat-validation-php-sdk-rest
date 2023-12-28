@@ -21,6 +21,14 @@ Current implementation dependencies:
 - guzzle client - https://github.com/guzzle/guzzle;
 - https://github.com/rocketfellows/vies-vat-validation-php-sdk-interface v1.1.0.
 
+## VIES VAT number validation REST service description.
+
+For more information about VIES VAT number validation REST service see: https://ec.europa.eu/taxation_customs/vies/#/technical-information.
+
+For the REST service, next urls are available:
+- https://ec.europa.eu/taxation_customs/vies/rest-api/check-vat-number - production;
+- https://ec.europa.eu/taxation_customs/vies/rest-api/check-vat-test-service - for test.
+
 ## Contributing.
 
 Welcome to pull requests. If there is a major changes, first please open an issue for discussion.
