@@ -177,6 +177,29 @@ abstract class VatNumberValidationServiceTest extends TestCase
                     ''
                 ),
             ],
+            'response country code empty, vat number empty, request date empty, is valid, name empty, address empty' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'checkVatResponse' => '{"countryCode": "", "vatNumber": "", "requestDate": "", "valid": true, "name": "", "address": ""}',
+                'expectedVatNumberValidationResult' => new VatNumberValidationResult(
+                    new VatNumber('', ''),
+                    '',
+                    true,
+                    '',
+                    ''
+                ),
+            ],
         ];
     }
 
