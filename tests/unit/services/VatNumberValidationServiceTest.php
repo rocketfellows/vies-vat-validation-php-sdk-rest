@@ -204,7 +204,7 @@ abstract class VatNumberValidationServiceTest extends TestCase
     }
 
     /**
-     * @dataProvider getCheckVatProvidedData
+     * @dataProvider getCheckVatWithDifferentSetOfAttributesInResponseProvidedData
      */
     public function testSuccessCheckVatWithDifferentSetOfAttributesInResponse(
         VatNumber $vatNumber,
@@ -244,7 +244,7 @@ abstract class VatNumberValidationServiceTest extends TestCase
                 ],
                 'checkVatResponse' => '{"vatNumber": "12312312", "requestDate": "2023-11-11 23:23:23", "valid": true, "name": "foo",  "address": "bar"}',
                 'expectedVatNumberValidationResult' => new VatNumberValidationResult(
-                    new VatNumber('DE', '12312312'),
+                    new VatNumber('', '12312312'),
                     '2023-11-11 23:23:23',
                     true,
                     'foo',
