@@ -20,8 +20,19 @@ jobs:
         uses: php-actions/phpstan@v3
         with:
           configuration: ./phpstan.neon.dist
-  run-php-unit-tests:
+  run-php-integration-tests:
     needs: run-php-stan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: php-actions/composer@v6
+      - uses: php-actions/phpunit@v3
+        with:
+          version: 9.5.28
+          bootstrap: vendor/autoload.php
+          configuration: phpunit.integration.xml
+  run-php-unit-tests:
+    needs: run-php-integration-tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
