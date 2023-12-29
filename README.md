@@ -29,7 +29,7 @@ For the REST service, next urls are available:
 - https://ec.europa.eu/taxation_customs/vies/rest-api/check-vat-number - production;
 - https://ec.europa.eu/taxation_customs/vies/rest-api/check-vat-test-service - for test.
 
-## VIES VAT number validation PHP sdk SOAP component description.
+## VIES VAT number validation PHP sdk REST component description.
 
 `AbstractVatNumberValidationRestService` - is an abstract class that implements the interface https://github.com/rocketfellows/vies-vat-validation-php-sdk-interface and is intended for sending a request for VAT validation using the REST web service, processing response/faults and returning an object of type validation result.
 
