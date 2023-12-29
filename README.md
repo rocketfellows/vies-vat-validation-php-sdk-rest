@@ -39,7 +39,73 @@ For the REST service, next urls are available:
 
 `VatNumberValidationRestExpansibleService` - is an inheritor of the `AbstractVatNumberValidationRestService` class, configured to send a request to the service according to url, passed through the class constructor (customizable service).
 
-// TODO
+## Usage examples.
+
+### VatNumberValidationRestService usage.
+
+<hr>
+
+VAT number validation result (VAT is valid):
+
+```php
+use GuzzleHttp\Client;
+use rocketfellows\ViesVatValidationInterface\FaultCodeExceptionFactory;
+use rocketfellows\ViesVatValidationInterface\VatNumber;
+use rocketfellows\ViesVatValidationRest\services\VatNumberValidationRestService;
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+// Service initialization
+$service = new VatNumberValidationRestService((new Client()), (new FaultCodeExceptionFactory()));
+
+$validationResult = $service->validateVat(VatNumber::create('DE', '206223519'));
+
+var_dump(sprintf('VAT country code: %s', $validationResult->getCountryCode()));
+var_dump(sprintf('VAT number: %s', $validationResult->getVatNumber()));
+var_dump(sprintf('Request date: %s', $validationResult->getRequestDateString()));
+var_dump(sprintf('Is VAT valid: %s', $validationResult->isValid() ? 'true' : 'false'));
+var_dump(sprintf('VAT holder name: %s', $validationResult->getName()));
+var_dump(sprintf('VAT holder address: %s', $validationResult->getAddress()));
+```
+```shell
+VAT country code: DE
+VAT number: 206223519
+Request date: 2023-12-29T11:33:23.919Z
+Is VAT valid: true
+VAT holder name: ---
+VAT holder address: ---
+```
+
+VAT number validation result (VAT is not valid):
+
+```php
+use GuzzleHttp\Client;
+use rocketfellows\ViesVatValidationInterface\FaultCodeExceptionFactory;
+use rocketfellows\ViesVatValidationInterface\VatNumber;
+use rocketfellows\ViesVatValidationRest\services\VatNumberValidationRestService;
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+// Service initialization
+$service = new VatNumberValidationRestService((new Client()), (new FaultCodeExceptionFactory()));
+
+$validationResult = $service->validateVat(VatNumber::create('DE', '206223511'));
+
+var_dump(sprintf('VAT country code: %s', $validationResult->getCountryCode()));
+var_dump(sprintf('VAT number: %s', $validationResult->getVatNumber()));
+var_dump(sprintf('Request date: %s', $validationResult->getRequestDateString()));
+var_dump(sprintf('Is VAT valid: %s', $validationResult->isValid() ? 'true' : 'false'));
+var_dump(sprintf('VAT holder name: %s', $validationResult->getName()));
+var_dump(sprintf('VAT holder address: %s', $validationResult->getAddress()));
+```
+```shell
+VAT country code: DE
+VAT number: 206223511
+Request date: 2023-12-29T11:35:01.009Z
+Is VAT valid: false
+VAT holder name: ---
+VAT holder address: ---
+```
 
 ## Contributing.
 
