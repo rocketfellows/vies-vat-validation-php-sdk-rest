@@ -10,6 +10,7 @@ use rocketfellows\ViesVatValidationInterface\exceptions\ServiceRequestException;
 use rocketfellows\ViesVatValidationInterface\FaultCodeExceptionFactory;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
 use rocketfellows\ViesVatValidationInterface\VatNumberValidationResult;
+use rocketfellows\ViesVatValidationInterface\VatNumberValidationResultFactory;
 use rocketfellows\ViesVatValidationInterface\VatNumberValidationServiceInterface;
 use rocketfellows\ViesVatValidationRest\helpers\RequestFactory;
 use rocketfellows\ViesVatValidationRest\helpers\ResponseErrorFactory;
@@ -19,13 +20,16 @@ abstract class AbstractVatNumberValidationRestService implements VatNumberValida
 {
     private $client;
     private $faultCodeExceptionFactory;
+    private $vatNumberValidationResultFactory;
 
     public function __construct(
         Client $client,
-        FaultCodeExceptionFactory $faultCodeExceptionFactory
+        FaultCodeExceptionFactory $faultCodeExceptionFactory,
+        VatNumberValidationResultFactory $vatNumberValidationResultFactory
     ) {
         $this->client = $client;
         $this->faultCodeExceptionFactory = $faultCodeExceptionFactory;
+        $this->vatNumberValidationResultFactory = $vatNumberValidationResultFactory;
     }
 
     abstract protected function getUrl(): string;
