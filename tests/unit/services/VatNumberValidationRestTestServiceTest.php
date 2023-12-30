@@ -14,6 +14,10 @@ class VatNumberValidationRestTestServiceTest extends VatNumberValidationServiceT
 
     protected function getVatNumberValidationRestService(): VatNumberValidationServiceInterface
     {
-        return new VatNumberValidationRestTestService($this->client, $this->faultCodeExceptionFactory);
+        return new VatNumberValidationRestTestService(
+            $this->client,
+            $this->faultCodeExceptionFactory,
+            $this->vatNumberValidationResultFactory
+        );
     }
 }
