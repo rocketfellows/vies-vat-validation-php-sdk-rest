@@ -17,6 +17,7 @@ use rocketfellows\ViesVatValidationInterface\exceptions\service\TimeoutServiceEx
 use rocketfellows\ViesVatValidationInterface\exceptions\service\VatBlockedServiceException;
 use rocketfellows\ViesVatValidationInterface\FaultCodeExceptionFactory;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
+use rocketfellows\ViesVatValidationInterface\VatNumberValidationResultFactory;
 
 /**
  * @group vies-vat-validation-rest
@@ -31,7 +32,8 @@ class VatNumberValidationRestServiceTest extends TestCase
 
         $this->testVatNumberValidationRestService = new TestVatNumberValidationRestService(
             (new Client()),
-            (new FaultCodeExceptionFactory())
+            (new FaultCodeExceptionFactory()),
+            (new VatNumberValidationResultFactory())
         );
     }
 

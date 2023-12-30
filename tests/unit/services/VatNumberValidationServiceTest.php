@@ -24,9 +24,16 @@ use rocketfellows\ViesVatValidationInterface\exceptions\service\TimeoutServiceEx
 use rocketfellows\ViesVatValidationInterface\exceptions\service\UnknownServiceErrorException;
 use rocketfellows\ViesVatValidationInterface\exceptions\service\VatBlockedServiceException;
 use rocketfellows\ViesVatValidationInterface\exceptions\ServiceRequestException;
+use rocketfellows\ViesVatValidationInterface\exceptions\validationResult\CountryCodeAttributeNotFoundException;
+use rocketfellows\ViesVatValidationInterface\exceptions\validationResult\RequestDateAttributeNotFoundException;
+use rocketfellows\ViesVatValidationInterface\exceptions\validationResult\ValidationFlagAttributeNotFoundException;
+use rocketfellows\ViesVatValidationInterface\exceptions\validationResult\VatNumberAttributeNotFoundException;
+use rocketfellows\ViesVatValidationInterface\exceptions\validationResult\VatOwnerAddressAttributeNotFoundException;
+use rocketfellows\ViesVatValidationInterface\exceptions\validationResult\VatOwnerNameAttributeNotFoundException;
 use rocketfellows\ViesVatValidationInterface\FaultCodeExceptionFactory;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
 use rocketfellows\ViesVatValidationInterface\VatNumberValidationResult;
+use rocketfellows\ViesVatValidationInterface\VatNumberValidationResultFactory;
 use rocketfellows\ViesVatValidationInterface\VatNumberValidationServiceInterface;
 
 /**
@@ -46,6 +53,7 @@ abstract class VatNumberValidationServiceTest extends TestCase
     protected $vatNumberValidationRestService;
     protected $faultCodeExceptionFactory;
     protected $client;
+    protected $vatNumberValidationResultFactory;
 
     abstract protected function getVatNumberValidationRestService(): VatNumberValidationServiceInterface;
 
@@ -55,6 +63,7 @@ abstract class VatNumberValidationServiceTest extends TestCase
 
         $this->faultCodeExceptionFactory = new FaultCodeExceptionFactory();
         $this->client = $this->createMock(Client::class);
+        $this->vatNumberValidationResultFactory = new VatNumberValidationResultFactory();
 
         $this->vatNumberValidationRestService = $this->getVatNumberValidationRestService();
     }
@@ -108,7 +117,7 @@ abstract class VatNumberValidationServiceTest extends TestCase
     public function getCheckVatProvidedData(): array
     {
         return [
-            'response country code set, vat number set, request date set, is valid, name set, address set' => [
+            'response attributes in camel case, response country code set, vat number set, request date set, is valid, name set, address set' => [
                 'vatNumber' => new VatNumber(
                     'DE',
                     '12312312'
@@ -131,7 +140,30 @@ abstract class VatNumberValidationServiceTest extends TestCase
                     'bar'
                 ),
             ],
-            'response country code set, vat number set, request date set, not valid, name set, address set' => [
+            'response attributes in snake case, response country code set, vat number set, request date set, is valid, name set, address set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'checkVatResponse' => '{"country_code": "DE", "vat_number": "12312312", "request_date": "2023-11-11 23:23:23", "valid": true, "name": "foo", "address": "bar"}',
+                'expectedVatNumberValidationResult' => new VatNumberValidationResult(
+                    new VatNumber('DE', '12312312'),
+                    '2023-11-11 23:23:23',
+                    true,
+                    'foo',
+                    'bar'
+                ),
+            ],
+            'response attributes in camel case, response country code set, vat number set, request date set, not valid, name set, address set' => [
                 'vatNumber' => new VatNumber(
                     'DE',
                     '12312312'
@@ -154,7 +186,30 @@ abstract class VatNumberValidationServiceTest extends TestCase
                     'bar'
                 ),
             ],
-            'response country code empty, vat number empty, request date empty, not valid, name empty, address empty' => [
+            'response attributes in snake case, response country code set, vat number set, request date set, not valid, name set, address set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'checkVatResponse' => '{"country_code": "DE", "vat_number": "12312312", "request_date": "2023-11-11 23:23:23", "valid": false, "name": "foo", "address": "bar"}',
+                'expectedVatNumberValidationResult' => new VatNumberValidationResult(
+                    new VatNumber('DE', '12312312'),
+                    '2023-11-11 23:23:23',
+                    false,
+                    'foo',
+                    'bar'
+                ),
+            ],
+            'response attributes in camel case, response country code empty, vat number empty, request date empty, not valid, name empty, address empty' => [
                 'vatNumber' => new VatNumber(
                     'DE',
                     '12312312'
@@ -177,7 +232,30 @@ abstract class VatNumberValidationServiceTest extends TestCase
                     ''
                 ),
             ],
-            'response country code empty, vat number empty, request date empty, is valid, name empty, address empty' => [
+            'response attributes in snake case, response country code empty, vat number empty, request date empty, not valid, name empty, address empty' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'checkVatResponse' => '{"country_code": "", "vat_number": "", "request_date": "", "valid": false, "name": "", "address": ""}',
+                'expectedVatNumberValidationResult' => new VatNumberValidationResult(
+                    new VatNumber('', ''),
+                    '',
+                    false,
+                    '',
+                    ''
+                ),
+            ],
+            'response attributes in camel case, response country code empty, vat number empty, request date empty, is valid, name empty, address empty' => [
                 'vatNumber' => new VatNumber(
                     'DE',
                     '12312312'
@@ -200,17 +278,40 @@ abstract class VatNumberValidationServiceTest extends TestCase
                     ''
                 ),
             ],
+            'response attributes in snake case, response country code empty, vat number empty, request date empty, is valid, name empty, address empty' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'checkVatResponse' => '{"country_code": "", "vat_number": "", "request_date": "", "valid": true, "name": "", "address": ""}',
+                'expectedVatNumberValidationResult' => new VatNumberValidationResult(
+                    new VatNumber('', ''),
+                    '',
+                    true,
+                    '',
+                    ''
+                ),
+            ],
         ];
     }
 
     /**
      * @dataProvider getCheckVatWithDifferentSetOfAttributesInResponseProvidedData
      */
-    public function testSuccessCheckVatWithDifferentSetOfAttributesInResponse(
+    public function testHandlingCheckVatWithDifferentSetOfAttributesInResponse(
         VatNumber $vatNumber,
         array $checkVatCallArgs,
         string $checkVatResponse,
-        VatNumberValidationResult $expectedVatNumberValidationResult
+        string $expectedExceptionClass
     ): void {
         $this->client
             ->expects($this->once())
@@ -218,16 +319,15 @@ abstract class VatNumberValidationServiceTest extends TestCase
             ->with(...$checkVatCallArgs)
             ->willReturn($this->getResponseMock(['body' => $checkVatResponse,]));
 
-        $this->assertEquals(
-            $expectedVatNumberValidationResult,
-            $this->vatNumberValidationRestService->validateVat($vatNumber)
-        );
+        $this->expectException($expectedExceptionClass);
+
+        $this->vatNumberValidationRestService->validateVat($vatNumber);
     }
 
     public function getCheckVatWithDifferentSetOfAttributesInResponseProvidedData(): array
     {
         return [
-            'country code response attribute not set' => [
+            'response attributes in camel case, country code response attribute not set' => [
                 'vatNumber' => new VatNumber(
                     'DE',
                     '12312312'
@@ -242,15 +342,26 @@ abstract class VatNumberValidationServiceTest extends TestCase
                     ]
                 ],
                 'checkVatResponse' => '{"vatNumber": "12312312", "requestDate": "2023-11-11 23:23:23", "valid": true, "name": "foo", "address": "bar"}',
-                'expectedVatNumberValidationResult' => new VatNumberValidationResult(
-                    new VatNumber('', '12312312'),
-                    '2023-11-11 23:23:23',
-                    true,
-                    'foo',
-                    'bar'
-                ),
+                'expectedExceptionClass' => CountryCodeAttributeNotFoundException::class,
             ],
-            'vat number response attribute not set' => [
+            'response attributes in snake case, country code response attribute not set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'checkVatResponse' => '{"vat_number": "12312312", "request_date": "2023-11-11 23:23:23", "valid": true, "name": "foo", "address": "bar"}',
+                'expectedExceptionClass' => CountryCodeAttributeNotFoundException::class,
+            ],
+            'response attributes in camel case, vat number response attribute not set' => [
                 'vatNumber' => new VatNumber(
                     'DE',
                     '12312312'
@@ -265,15 +376,26 @@ abstract class VatNumberValidationServiceTest extends TestCase
                     ]
                 ],
                 'checkVatResponse' => '{"countryCode": "DE", "requestDate": "2023-11-11 23:23:23", "valid": true, "name": "foo", "address": "bar"}',
-                'expectedVatNumberValidationResult' => new VatNumberValidationResult(
-                    new VatNumber('DE', ''),
-                    '2023-11-11 23:23:23',
-                    true,
-                    'foo',
-                    'bar'
-                ),
+                'expectedExceptionClass' => VatNumberAttributeNotFoundException::class,
             ],
-            'request date response attribute not set' => [
+            'response attributes in snake case, vat number response attribute not set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'checkVatResponse' => '{"country_code": "DE", "request_date": "2023-11-11 23:23:23", "valid": true, "name": "foo", "address": "bar"}',
+                'expectedExceptionClass' => VatNumberAttributeNotFoundException::class,
+            ],
+            'response attributes in camel case, request date response attribute not set' => [
                 'vatNumber' => new VatNumber(
                     'DE',
                     '12312312'
@@ -288,15 +410,26 @@ abstract class VatNumberValidationServiceTest extends TestCase
                     ]
                 ],
                 'checkVatResponse' => '{"countryCode": "DE", "vatNumber": "12312312", "valid": true, "name": "foo", "address": "bar"}',
-                'expectedVatNumberValidationResult' => new VatNumberValidationResult(
-                    new VatNumber('DE', '12312312'),
-                    '',
-                    true,
-                    'foo',
-                    'bar'
-                ),
+                'expectedExceptionClass' => RequestDateAttributeNotFoundException::class,
             ],
-            'validation flag response attribute not set' => [
+            'response attributes in snake case, request date response attribute not set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'checkVatResponse' => '{"country_code": "DE", "vat_number": "12312312", "valid": true, "name": "foo", "address": "bar"}',
+                'expectedExceptionClass' => RequestDateAttributeNotFoundException::class,
+            ],
+            'response attributes in camel case, validation flag response attribute not set' => [
                 'vatNumber' => new VatNumber(
                     'DE',
                     '12312312'
@@ -311,15 +444,26 @@ abstract class VatNumberValidationServiceTest extends TestCase
                     ]
                 ],
                 'checkVatResponse' => '{"countryCode": "DE", "vatNumber": "12312312", "requestDate": "2023-11-11 23:23:23", "name": "foo", "address": "bar"}',
-                'expectedVatNumberValidationResult' => new VatNumberValidationResult(
-                    new VatNumber('DE', '12312312'),
-                    '2023-11-11 23:23:23',
-                    false,
-                    'foo',
-                    'bar'
-                ),
+                'expectedExceptionClass' => ValidationFlagAttributeNotFoundException::class,
             ],
-            'name response attribute not set' => [
+            'response attributes in snake case, validation flag response attribute not set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'checkVatResponse' => '{"country_code": "DE", "vat_number": "12312312", "request_date": "2023-11-11 23:23:23", "name": "foo", "address": "bar"}',
+                'expectedExceptionClass' => ValidationFlagAttributeNotFoundException::class,
+            ],
+            'response attributes in camel case, name response attribute not set' => [
                 'vatNumber' => new VatNumber(
                     'DE',
                     '12312312'
@@ -334,15 +478,26 @@ abstract class VatNumberValidationServiceTest extends TestCase
                     ]
                 ],
                 'checkVatResponse' => '{"countryCode": "DE", "vatNumber": "12312312", "requestDate": "2023-11-11 23:23:23", "valid": true, "address": "bar"}',
-                'expectedVatNumberValidationResult' => new VatNumberValidationResult(
-                    new VatNumber('DE', '12312312'),
-                    '2023-11-11 23:23:23',
-                    true,
-                    '',
-                    'bar'
-                ),
+                'expectedExceptionClass' => VatOwnerNameAttributeNotFoundException::class,
             ],
-            'address response attribute not set' => [
+            'response attributes in snake case, name response attribute not set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
+                ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'checkVatResponse' => '{"country_code": "DE", "vat_number": "12312312", "request_date": "2023-11-11 23:23:23", "valid": true, "address": "bar"}',
+                'expectedExceptionClass' => VatOwnerNameAttributeNotFoundException::class,
+            ],
+            'response attributes in camel case, address response attribute not set' => [
                 'vatNumber' => new VatNumber(
                     'DE',
                     '12312312'
@@ -357,13 +512,24 @@ abstract class VatNumberValidationServiceTest extends TestCase
                     ]
                 ],
                 'checkVatResponse' => '{"countryCode": "DE", "vatNumber": "12312312", "requestDate": "2023-11-11 23:23:23", "valid": true, "name": "foo"}',
-                'expectedVatNumberValidationResult' => new VatNumberValidationResult(
-                    new VatNumber('DE', '12312312'),
-                    '2023-11-11 23:23:23',
-                    true,
-                    'foo',
-                    ''
+                'expectedExceptionClass' => VatOwnerAddressAttributeNotFoundException::class,
+            ],
+            'response attributes in snake case, address response attribute not set' => [
+                'vatNumber' => new VatNumber(
+                    'DE',
+                    '12312312'
                 ),
+                'checkVatCallArgs' => [
+                    $this::EXPECTED_URL_SOURCE,
+                    [
+                        'json' => [
+                            'countryCode' => 'DE',
+                            'vatNumber' => '12312312',
+                        ],
+                    ]
+                ],
+                'checkVatResponse' => '{"country_code": "DE", "vat_number": "12312312", "request_date": "2023-11-11 23:23:23", "valid": true, "name": "foo"}',
+                'expectedExceptionClass' => VatOwnerAddressAttributeNotFoundException::class,
             ],
             'response attributes not set' => [
                 'vatNumber' => new VatNumber(
@@ -380,13 +546,7 @@ abstract class VatNumberValidationServiceTest extends TestCase
                     ]
                 ],
                 'checkVatResponse' => '{}',
-                'expectedVatNumberValidationResult' => new VatNumberValidationResult(
-                    new VatNumber('', ''),
-                    '',
-                    false,
-                    '',
-                    ''
-                ),
+                'expectedExceptionClass' => CountryCodeAttributeNotFoundException::class,
             ],
         ];
     }

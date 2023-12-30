@@ -17,7 +17,8 @@ class VatNumberValidationRestExpansibleServiceTest extends VatNumberValidationSe
         return new VatNumberValidationRestExpansibleService(
             self::EXPECTED_URL_SOURCE,
             $this->client,
-            $this->faultCodeExceptionFactory
+            $this->faultCodeExceptionFactory,
+            $this->vatNumberValidationResultFactory
         );
     }
 }
