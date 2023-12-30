@@ -53,12 +53,13 @@ VAT number validation result (VAT is valid):
 use GuzzleHttp\Client;
 use rocketfellows\ViesVatValidationInterface\FaultCodeExceptionFactory;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
+use rocketfellows\ViesVatValidationInterface\VatNumberValidationResultFactory;
 use rocketfellows\ViesVatValidationRest\services\VatNumberValidationRestService;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
 // Service initialization
-$service = new VatNumberValidationRestService((new Client()), (new FaultCodeExceptionFactory()));
+$service = new VatNumberValidationRestService((new Client()), (new FaultCodeExceptionFactory()), (new VatNumberValidationResultFactory()));
 
 $validationResult = $service->validateVat(VatNumber::create('DE', '206223519'));
 
@@ -84,12 +85,13 @@ VAT number validation result (VAT is not valid):
 use GuzzleHttp\Client;
 use rocketfellows\ViesVatValidationInterface\FaultCodeExceptionFactory;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
+use rocketfellows\ViesVatValidationInterface\VatNumberValidationResultFactory;
 use rocketfellows\ViesVatValidationRest\services\VatNumberValidationRestService;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
 // Service initialization
-$service = new VatNumberValidationRestService((new Client()), (new FaultCodeExceptionFactory()));
+$service = new VatNumberValidationRestService((new Client()), (new FaultCodeExceptionFactory()), (new VatNumberValidationResultFactory()));
 
 $validationResult = $service->validateVat(VatNumber::create('DE', '206223511'));
 
@@ -138,12 +140,13 @@ VAT number validation result (VAT is valid):
 use GuzzleHttp\Client;
 use rocketfellows\ViesVatValidationInterface\FaultCodeExceptionFactory;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
+use rocketfellows\ViesVatValidationInterface\VatNumberValidationResultFactory;
 use rocketfellows\ViesVatValidationRest\services\VatNumberValidationRestTestService;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
 // Service initialization
-$service = new VatNumberValidationRestTestService((new Client()), (new FaultCodeExceptionFactory()));
+$service = new VatNumberValidationRestTestService((new Client()), (new FaultCodeExceptionFactory()), (new VatNumberValidationResultFactory()));
 
 $validationResult = $service->validateVat(VatNumber::create('DE', '100'));
 
@@ -169,12 +172,13 @@ VAT number validation result (VAT is not valid):
 use GuzzleHttp\Client;
 use rocketfellows\ViesVatValidationInterface\FaultCodeExceptionFactory;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
+use rocketfellows\ViesVatValidationInterface\VatNumberValidationResultFactory;
 use rocketfellows\ViesVatValidationRest\services\VatNumberValidationRestTestService;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
 // Service initialization
-$service = new VatNumberValidationRestTestService((new Client()), (new FaultCodeExceptionFactory()));
+$service = new VatNumberValidationRestTestService((new Client()), (new FaultCodeExceptionFactory()), (new VatNumberValidationResultFactory()));
 
 $validationResult = $service->validateVat(VatNumber::create('DE', '200'));
 
@@ -200,12 +204,13 @@ VAT number validation resulted with INVALID_INPUT fault:
 use GuzzleHttp\Client;
 use rocketfellows\ViesVatValidationInterface\FaultCodeExceptionFactory;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
+use rocketfellows\ViesVatValidationInterface\VatNumberValidationResultFactory;
 use rocketfellows\ViesVatValidationRest\services\VatNumberValidationRestTestService;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
 // Service initialization
-$service = new VatNumberValidationRestTestService((new Client()), (new FaultCodeExceptionFactory()));
+$service = new VatNumberValidationRestTestService((new Client()), (new FaultCodeExceptionFactory()), (new VatNumberValidationResultFactory()));
 
 try {
     $validationResult = $service->validateVat(VatNumber::create('DE', '201'));
@@ -225,12 +230,13 @@ VAT number validation resulted with IP_BLOCKED fault:
 use GuzzleHttp\Client;
 use rocketfellows\ViesVatValidationInterface\FaultCodeExceptionFactory;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
+use rocketfellows\ViesVatValidationInterface\VatNumberValidationResultFactory;
 use rocketfellows\ViesVatValidationRest\services\VatNumberValidationRestTestService;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
 // Service initialization
-$service = new VatNumberValidationRestTestService((new Client()), (new FaultCodeExceptionFactory()));
+$service = new VatNumberValidationRestTestService((new Client()), (new FaultCodeExceptionFactory()), (new VatNumberValidationResultFactory()));
 
 try {
     $validationResult = $service->validateVat(VatNumber::create('DE', '401'));
@@ -258,6 +264,7 @@ VAT number validation result (VAT is valid):
 use GuzzleHttp\Client;
 use rocketfellows\ViesVatValidationInterface\FaultCodeExceptionFactory;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
+use rocketfellows\ViesVatValidationInterface\VatNumberValidationResultFactory;
 use rocketfellows\ViesVatValidationRest\services\VatNumberValidationRestExpansibleService;
 
 require_once __DIR__ . '/vendor/autoload.php';
@@ -266,7 +273,8 @@ require_once __DIR__ . '/vendor/autoload.php';
 $service = new VatNumberValidationRestExpansibleService(
     'https://ec.europa.eu/taxation_customs/vies/rest-api/check-vat-number',
     (new Client()),
-    (new FaultCodeExceptionFactory())
+    (new FaultCodeExceptionFactory()),
+    (new VatNumberValidationResultFactory())
 );
 
 $validationResult = $service->validateVat(VatNumber::create('DE', '206223519'));
@@ -293,6 +301,7 @@ VAT number validation result (VAT is not valid):
 use GuzzleHttp\Client;
 use rocketfellows\ViesVatValidationInterface\FaultCodeExceptionFactory;
 use rocketfellows\ViesVatValidationInterface\VatNumber;
+use rocketfellows\ViesVatValidationInterface\VatNumberValidationResultFactory;
 use rocketfellows\ViesVatValidationRest\services\VatNumberValidationRestExpansibleService;
 
 require_once __DIR__ . '/vendor/autoload.php';
@@ -301,7 +310,8 @@ require_once __DIR__ . '/vendor/autoload.php';
 $service = new VatNumberValidationRestExpansibleService(
     'https://ec.europa.eu/taxation_customs/vies/rest-api/check-vat-number',
     (new Client()),
-    (new FaultCodeExceptionFactory())
+    (new FaultCodeExceptionFactory()),
+    (new VatNumberValidationResultFactory())
 );
 
 $validationResult = $service->validateVat(VatNumber::create('DE', '206223511'));
