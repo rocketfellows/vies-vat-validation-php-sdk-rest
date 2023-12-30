@@ -41,6 +41,16 @@ Swagger file: https://ec.europa.eu/assets/taxud/vow-information/swagger_publicVA
 
 `VatNumberValidationRestExpansibleService` - is an inheritor of the `AbstractVatNumberValidationRestService` class, configured to send a request to the service according to url, passed through the class constructor (customizable service).
 
+For creating vat number validation result this component is using factory `rocketfellows\ViesVatValidationInterface\VatNumberValidationResultFactory` from interface package https://github.com/rocketfellows/vies-vat-validation-php-sdk-interface.
+According to factory, if any of required response attributes is missing, then validation process will throw special exceptions:
+
+- `CountryCodeAttributeNotFoundException` - exception thrown if while creating instance of `VatNumberValidationResult` country code attribute not found.
+- `RequestDateAttributeNotFoundException` - exception thrown if while creating instance of `VatNumberValidationResult` request date attribute not found.
+- `ValidationFlagAttributeNotFoundException` - exception thrown if while creating instance of `VatNumberValidationResult` validation flag attribute not found.
+- `VatNumberAttributeNotFoundException` - exception thrown if while creating instance of `VatNumberValidationResult` vat number attribute not found.
+- `VatOwnerAddressAttributeNotFoundException` - exception thrown if while creating instance of `VatNumberValidationResult` vat owner address attribute not found.
+- `VatOwnerNameAttributeNotFoundException` - exception thrown if while creating instance of `VatNumberValidationResult` vat owner name attribute not found.
+
 ## Usage examples.
 
 ### VatNumberValidationRestService usage.
