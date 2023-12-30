@@ -38,12 +38,7 @@ abstract class AbstractVatNumberValidationRestService implements VatNumberValida
     {
         try {
             $responseData = ResponseFactory::getResponseData(
-                $this->client->post(
-                    $this->getUrl(),
-                    [
-                        'json' => RequestFactory::getCheckVatNumberRequestData($vatNumber),
-                    ]
-                )
+                $this->client->post(...$this->getRequestParams($vatNumber))
             );
 
             if (ResponseErrorFactory::isResponseWithError($responseData)) {
@@ -68,5 +63,15 @@ abstract class AbstractVatNumberValidationRestService implements VatNumberValida
                 $exception
             );
         }
+    }
+
+    private function getRequestParams(VatNumber $vatNumber): array
+    {
+        return [
+            $this->getUrl(),
+            [
+                'json' => RequestFactory::getCheckVatNumberRequestData($vatNumber),
+            ]
+        ];
     }
 }
