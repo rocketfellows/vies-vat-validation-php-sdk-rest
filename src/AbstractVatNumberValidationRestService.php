@@ -15,6 +15,7 @@ use rocketfellows\ViesVatValidationInterface\VatNumberValidationServiceInterface
 use rocketfellows\ViesVatValidationRest\helpers\RequestFactory;
 use rocketfellows\ViesVatValidationRest\helpers\ResponseErrorFactory;
 use rocketfellows\ViesVatValidationRest\helpers\ResponseFactory;
+use stdClass;
 
 abstract class AbstractVatNumberValidationRestService implements VatNumberValidationServiceInterface
 {
@@ -42,20 +43,14 @@ abstract class AbstractVatNumberValidationRestService implements VatNumberValida
             );
 
             if (ResponseErrorFactory::isResponseWithError($responseData)) {
-                throw $this->faultCodeExceptionFactory->create(
-                    ResponseErrorFactory::getResponseErrorCode($responseData),
-                    ResponseErrorFactory::getResponseErrorMessage($responseData)
-                );
+                throw $this->faultCodeExceptionFactory->create(...$this->getResponseErrorData($responseData));
             }
 
             return $this->vatNumberValidationResultFactory->createFromObject($responseData);
         } catch (ClientException | ServerException $exception) {
             $exceptionResponseData = ResponseFactory::getResponseData($exception->getResponse());
 
-            throw $this->faultCodeExceptionFactory->create(
-                ResponseErrorFactory::getResponseErrorCode($exceptionResponseData),
-                ResponseErrorFactory::getResponseErrorMessage($exceptionResponseData)
-            );
+            throw $this->faultCodeExceptionFactory->create(...$this->getResponseErrorData($exceptionResponseData));
         } catch (GuzzleException $exception) {
             throw new ServiceRequestException(
                 $exception->getMessage(),
@@ -72,6 +67,14 @@ abstract class AbstractVatNumberValidationRestService implements VatNumberValida
             [
                 'json' => RequestFactory::getCheckVatNumberRequestData($vatNumber),
             ]
+        ];
+    }
+
+    private function getResponseErrorData(stdClass $responseData): array
+    {
+        return [
+            ResponseErrorFactory::getResponseErrorCode($responseData),
+            ResponseErrorFactory::getResponseErrorMessage($responseData)
         ];
     }
 }
