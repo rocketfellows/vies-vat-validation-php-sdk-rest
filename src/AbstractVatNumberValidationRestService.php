@@ -48,9 +48,9 @@ abstract class AbstractVatNumberValidationRestService implements VatNumberValida
 
             return $this->vatNumberValidationResultFactory->createFromObject($responseData);
         } catch (ClientException | ServerException $exception) {
-            $exceptionResponseData = ResponseFactory::getResponseData($exception->getResponse());
-
-            throw $this->faultCodeExceptionFactory->create(...$this->getResponseErrorData($exceptionResponseData));
+            throw $this->faultCodeExceptionFactory->create(
+                ...$this->getResponseErrorData(ResponseFactory::getResponseData($exception->getResponse()))
+            );
         } catch (GuzzleException $exception) {
             throw new ServiceRequestException(
                 $exception->getMessage(),
